@@ -6,13 +6,14 @@
   "dependencies": {
     "express": "~3.5.0",
     "request": "~2.34.0",
-    "url": "~0.7.9"
+    "url": "~0.7.9",
+    "logfmt": "~1.0.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
+  "repository": "https://github.com/gthetwong/lorax_client",
   "author": "graham wong/sam choi",
   "license": "BSD"
 }
