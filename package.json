@@ -1,0 +1,18 @@
+{
+  "name": "lorax",
+  "version": "0.0.0",
+  "description": "automated water sensor app for plants",
+  "main": "app.js",
+  "dependencies": {
+    "express": "~3.5.0",
+    "request": "~2.34.0",
+    "url": "~0.7.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "graham wong/sam choi",
+  "license": "BSD"
+}
