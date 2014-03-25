@@ -1,10 +1,18 @@
  var express = require("express");
- var logfmt = require("logfmt");
  var app = express();
+ var mongoose = require('mongoose');
+ var passport = require('passport');
+ var flash = require('connect-flash');
+ var configDB = require('./config/database.js');
+ var logfmt = require("logfmt");
  var url = require('url');
 
+mongoose.connect(configDB.url);
+
+
+
  // all environments
-app.set('port', process.env.PORT || 3000);
+// app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
@@ -12,24 +20,32 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 // app.use(express.favicon());
+app.use(express.cookieParser());
+app.use(express.bodyParser());  // including this line to try app.post below
+app.use(express.session({ secret: 'cookiemonsterlovescookies'}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
-app.use(express.bodyParser());  // including this line to try app.post below
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(logfmt.requestLogger());
 
+// app.use(logfmt.requestLogger());
 
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
   app.use(express.logger('dev'));
 }
 
- app.get('/', function(req, res){
-	res.send('Hello World!');
-  //hits backbone router or
-});
+require('./app/routes.js')(app, passport);
+
+//  app.get('/', function(req, res){
+// 	res.send('Hello World!');
+//   //hits backbone router or
+// });
 
  var port = Number(process.env.PORT || 5000);
 
