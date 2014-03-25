@@ -12,6 +12,11 @@ window.ClientApp = {
 
   makeNav: function(){
     var view = new this.Views.Nav();
-    $().html(view.render().$el);
+    $('#header').html(view.render().$el);
   }
 };
+
+$(document).ready(function(){
+  ClientApp.start();
+
+});
