@@ -6,19 +6,18 @@
  var configDB = require('./config/database.js');
  var logfmt = require("logfmt");
  var url = require('url');
+ var path = require('path');
 
 mongoose.connect(configDB.url);
-
-
 
  // all environments
 // app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({
-  defaultLayout: 'main',
-  layoutsDir: app.get('views') + '/layouts'
-}));
-app.set('view engine', 'handlebars');
+// app.engine('handlebars', exphbs({
+//   defaultLayout: 'main',
+//   layoutsDir: app.get('views') + '/layouts'
+// }));
+// app.set('view engine', 'handlebars');
 // app.use(express.favicon());
 app.use(express.cookieParser());
 app.use(express.bodyParser());  // including this line to try app.post below
@@ -26,7 +25,6 @@ app.use(express.session({ secret: 'cookiemonsterlovescookies'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
@@ -41,10 +39,11 @@ if ('development' == app.get('env')) {
 }
 
 require('./app/routes.js')(app, passport);
+require('./config/passport')(passport);
 
 //  app.get('/', function(req, res){
-// 	res.send('Hello World!');
-//   //hits backbone router or
+//res.send('Hello World!');
+//  hits backbone router or
 // });
 
  var port = Number(process.env.PORT || 5000);
