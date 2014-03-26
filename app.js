@@ -19,15 +19,16 @@ app.set('views', path.join(__dirname, 'views'));
 // }));
 // app.set('view engine', 'handlebars');
 // app.use(express.favicon());
+app.use(express.logger());
 app.use(express.cookieParser());
 app.use(express.bodyParser());  // including this line to try app.post below
+app.use(express.methodOverride());
 app.use(express.session({ secret: 'cookiemonsterlovescookies'}));
+// app.use(express.json());
+// app.use(express.urlencoded());
+// app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
