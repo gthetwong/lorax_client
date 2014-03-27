@@ -24,18 +24,12 @@ var NewPlantView = Backbone.View.extend({
 
 var SignupView = Backbone.View.extend({
   render: function(){
-    // var template = $("#loraxtemplate").html();
-    // var compiled = Handelbars.compile(template);
-    // var html = compiled(this.model.attributes);
-    // this.$el.html(html);
     var that = this;
     if(this.template){
       var html = this.template(this.model.attributes);
       this.$el.html(html);
     } else {
       $.get("/signup_template").done(function(template){
-        // that.template = Handlebars.compile(template);  
-        // var html = that.template(this.model.attributes);
         var Template = Handlebars.compile(template);
         var html = Template({message: ""});
         that.$el.html(html);
@@ -106,12 +100,7 @@ var AppRouter = Backbone.Router.extend({
     "profile": "profile"
   },
   index: function(){
-    console.log("LOADING INDEX???");
-    // var collection = new LoraxCollection();
-    // collection.fetch({ reset: true });
-    // var view = new LoraxCollectionView({collection: collection});
-    // $(".app").html(view.render().el);
-    $(".app").html("<div>hello!</div>");
+    
   },
   signup: function () {
     var view = new SignupView();

@@ -54,9 +54,9 @@ require('./app/routes.js')(app,passport);
 require('./config/passport')(passport);
 
 //backbone routes
-app.get('/', routes.getplants);
+// app.get('/', routes.getplants);
 //app.get('/test', routes.test);
-app.post('/createplant', routes.createplant);
+// app.post('/createplant', routes.createplant);
 
 //testing out showing twitter feed
 app.get('/tweets/:username', function(req,res){
