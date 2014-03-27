@@ -7,6 +7,24 @@ var LoraxCollection = Backbone.Collection.extend({
   url: "/lorax" 
 });
 
+var NewPlantView = Backbone.View.extend({
+  className: "newplant",
+  events: {
+    "click something" : "submit"
+  },
+  render: function(){
+    var template = $("#newplanttemplate").html();
+    var compiled = Handelbars.compile(template);
+    var html = compiled(this.model.attributes);
+    this.$el.html(html);
+    return this;
+  },
+  submit: function(){
+    
+  }
+
+});
+
 var LoraxView = Backbone.View.extend({
   tagName: "li",
   className: "lorax",

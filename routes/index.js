@@ -1,5 +1,6 @@
 // var db = require("../database.js");
- var User = require('../app/models/user');
+var User = require('../app/models/user');
+var Plant = require('../app/models/plant');
 
 exports.index = function(req, res) {
   db.lorax.find(function(err, lorax) {
@@ -26,5 +27,22 @@ exports.test = function(req, res){
       console.log(err);
     }
   });
+};
+
+exports.createplant = function(req, res){
+  var plant = new Plant({ 
+    details: { 
+      pi_serial_id : pi_serial_id,
+      redline      : redline,
+      nickname     : nickname,
+      owner_id     : owner_id
+    } 
+  });
+  plant.save(function(err){
+    if(err){
+      console.log("err");
+    }
+  });
+
 };
 

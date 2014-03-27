@@ -10,8 +10,6 @@
  var ejs = require('ejs');
  var routes = require('./routes');
 
- var Plant = require('./app/models/plant');
-
 
 // mongoose.connect(configDB.url);
 var mongo = require('mongodb');
@@ -24,6 +22,47 @@ var test = mongoose.connect(uristring, function(err, res){
     console.log('Succeeded connecting to: '+ uristring);
   }
 });
+
+ // all environments
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
+app.use(express.logger());
+app.use(express.cookieParser());
+app.use(express.bodyParser());  // including this line to try app.post below
+app.use(express.methodOverride());
+app.use(express.session({ secret: 'cookiemonsterlovescookies' }));
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use(logfmt.requestLogger());
+
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+  app.use(express.logger('dev'));
+}
+
+//passport routes for login
+require('./app/routes.js')(app,passport);
+require('./config/passport')(passport);
+
+//backbone routes
+app.get('/', routes.index);
+app.get('/test', routes.test);
+app.post('/createplant', routes.createplant);
+
+
+ var port = Number(process.env.PORT || 5000);
+
+ app.listen(port, function(){
+	console.log("Listening on " + port);
+});
+
+
 
 // var userSchema = new mongoose.Schema({
 //   name: {
@@ -45,56 +84,4 @@ var test = mongoose.connect(uristring, function(err, res){
 //     console.log("error saving!");
 //   }
 // });
-
-
-
- // all environments
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.engine('html', require('ejs').renderFile);
-app.use(express.logger());
-app.use(express.cookieParser());
-app.use(express.bodyParser());  // including this line to try app.post below
-app.use(express.methodOverride());
-app.use(express.session({ secret: 'cookiemonsterlovescookies' }));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
-
-// app.use(logfmt.requestLogger());
-
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-  app.use(express.logger('dev'));
-}
-
-require('./app/routes.js')(app,passport);
-require('./config/passport')(passport);
-
-app.get('/', routes.index);
-app.get('/test', routes.test);
-// app.get('/lorax', routes.lorax);
-// app.get('/test', function(req, res){
-//   User.find({}).exec(function(err,result){
-//     if(!err){
-//       var user = {};
-//       user.displayName = result[1].twitter.displayName;
-//       user.username = result[1].twitter.username;
-//       res.send(user);
-//     } else{
-//       console.log(err);
-//     }
-//   });
-// });
-
- var port = Number(process.env.PORT || 5000);
-
- app.listen(port, function(){
-	console.log("Listening on " + port);
-});
-
 
