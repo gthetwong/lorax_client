@@ -1,4 +1,4 @@
-var db = require("../database.js");
+// var db = require("../database.js");
 
 exports.index = function(req, res) {
   db.lorax.find(function(err, lorax) {

@@ -10,11 +10,14 @@
  var ejs = require('ejs');
  var routes = require('./routes');
  var User = require('./app/models/user');
+
+ var Plant = require('./app/models/plant');
+
+
 // mongoose.connect(configDB.url);
 var mongo = require('mongodb');
 
 var uristring = configDB.url; //process.env.MONGOLAB_URI; // || 'mongodb://localhost/HelloMongoose';
-// var theport = process.env.PORT || 5000;
 var test = mongoose.connect(uristring, function(err, res){
   if(err){
     console.log('Error connecting to: ' + uristring + '. ' + err);
@@ -23,26 +26,26 @@ var test = mongoose.connect(uristring, function(err, res){
   }
 });
 
-var userSchema = new mongoose.Schema({
-  name: {
-    first: String,
-    last: {type: String, trim: true}
-  },
-  age: {type:Number, min:0}
-});
+// var userSchema = new mongoose.Schema({
+//   name: {
+//     first: String,
+//     last: {type: String, trim: true}
+//   },
+//   age: {type:Number, min:0}
+// });
 
-var PUser = mongoose.model('PowerUsers', userSchema);
+// var PUser = mongoose.model('PowerUsers', userSchema);
 
-var graham = new PUser({
-  name: {first: 'Graham', last: 'Wong'},
-  age: 24
-});
+// var graham = new PUser({
+//   name: {first: 'Graham', last: 'Wong'},
+//   age: 24
+// });
 
-graham.save(function(err) {
-  if (err){
-    console.log("error saving!");
-  }
-});
+// graham.save(function(err) {
+//   if (err){
+//     console.log("error saving!");
+//   }
+// });
 
 
 
