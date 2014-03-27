@@ -12,6 +12,7 @@
  var request = require('request');
 
 
+
 // mongoose.connect(configDB.url);
 var mongo = require('mongodb');
 
@@ -52,8 +53,8 @@ require('./app/routes.js')(app,passport);
 require('./config/passport')(passport);
 
 //backbone routes
-app.get('/', routes.index);
-app.get('/test', routes.test);
+app.get('/', routes.getplants);
+//app.get('/test', routes.test);
 app.post('/createplant', routes.createplant);
 
 //testing out showing twitter feed

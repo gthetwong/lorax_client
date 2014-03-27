@@ -9,25 +9,31 @@ exports.index = function(req, res) {
       appData: data
     });
   });
+};
+
+
+
+exports.getplants = function(req, res) {
+ Plant.find({}).exec(function(err, result) {
+    res.send(result);
+  });
   console.log("at index");
 };
 
 // exports.lorax = function(req,res){
 //   console.log("lorax.all");
 // };
-
-exports.test = function(req, res){
-  User.find({}).exec(function(err,result){
-    if(!err){
-      var user = {};
-      user.displayName = result[1].twitter.displayName;
-      user.username = result[1].twitter.username;
-      res.send(user);
-    } else{
-      console.log(err);
-    }
-  });
-};
+// exports.test = function(req, res){
+//   User.find({}).exec(function(err,result){
+//     if(!err){
+//       _.each(result, function(index, item){
+//         res.send(item);
+//       });
+//     } else{
+//       console.log(err);
+//     }
+//   });
+// };
 
 exports.createplant = function(req, res){
   var plant = new Plant({ 
