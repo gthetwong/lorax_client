@@ -43,12 +43,12 @@ if ('development' == app.get('env')) {
   app.use(express.logger('dev'));
 }
 
-app.get('/', routes.index);
+
 
 require('./app/routes.js')(app,passport);
 require('./config/passport')(passport);
 
-
+app.get('/', routes.index);
 
  var port = Number(process.env.PORT || 5000);
 
