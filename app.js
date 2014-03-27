@@ -9,6 +9,7 @@
  var path = require('path');
  var ejs = require('ejs');
  var routes = require('./routes');
+ var User = require('./app/models/user');
 
 
 // mongoose.connect(configDB.url);
@@ -86,9 +87,12 @@ require('./config/passport')(passport);
 app.get('/', routes.index);
 // app.get('/lorax', routes.lorax);
 app.get('/test', function(req, res){
-  PUser.find({}).exec(function(err,result){
+  User.find({}).exec(function(err,result){
     if(!err){
-      res.send(result);
+      var user = {};
+      user.displayName = result[1].twitter.displayName;
+      user.username = result[1].twitter.username;
+      res.send(user);
     } else{
       console.log(err);
     }
