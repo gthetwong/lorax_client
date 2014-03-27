@@ -12,10 +12,6 @@ exports.index = function(req, res) {
   console.log("at index");
 };
 
-// exports.lorax = function(req,res){
-//   console.log("lorax.all");
-// };
-
 exports.test = function(req, res){
   User.find({}).exec(function(err,result){
     if(!err){

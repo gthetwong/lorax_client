@@ -1,0 +1,29 @@
+<div>
+
+  <h1> Login with BB</h1>
+
+  <!-- show any messages that come back with authentication -->
+
+    <div>{{message}}</div>
+
+
+  <!-- LOGIN FORM -->
+  <form action="/login" method="post">
+    <div>
+      <label>Email</label>
+      <input type="text" name="email">
+    </div>
+    <div>
+      <label>Password</label>
+      <input type="password"name="password">
+    </div>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <hr>
+
+  <p>Need an account? <a href="/signup">Signup</a></p>
+  <p>Or go <a href="/">home</a>.</p>
+
+</div>
