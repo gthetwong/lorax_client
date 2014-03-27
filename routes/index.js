@@ -2,12 +2,23 @@
 var User = require('../app/models/user');
 var Plant = require('../app/models/plant');
 
+<<<<<<< Updated upstream
 exports.index = function(req, res) {
   User.find(function(err, user) {
     var data = JSON.stringify(user);
     res.render("layout", {
       appData: data
     });
+=======
+exports.index = function(req, res){
+  
+}
+
+
+exports.getplants = function(req, res) {
+ Plant.find({}).exec(function(err, result) {
+    res.send(result);
+>>>>>>> Stashed changes
   });
 };
 

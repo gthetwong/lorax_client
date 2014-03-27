@@ -13,7 +13,7 @@ module.exports = function(app, passport){
     res.render('layout.ejs', {message: req.flash('signupMessage')});
   });
   app.get('/signup_template', function(req,res){
-    res.render('index.html', {message: req.flash('signupMessage')});
+    res.render('signup.ejs', {message: req.flash('signupMessage')});
   });
 
   app.get('/profile', isLoggedIn, function(req,res){
