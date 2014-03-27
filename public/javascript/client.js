@@ -3,8 +3,7 @@ var Lorax = Backbone.Model.extend({
 });
 
 var LoraxCollection = Backbone.Collection.extend({
-  model: Lorax,
-  url: "/lorax" 
+  model: Lorax
 });
 
 var NewPlantView = Backbone.View.extend({
@@ -20,7 +19,7 @@ var NewPlantView = Backbone.View.extend({
     return this;
   },
   submit: function(){
-    
+
   }
 
 });
@@ -29,15 +28,31 @@ var LoraxView = Backbone.View.extend({
   tagName: "li",
   className: "lorax",
   render: function(){
-    var template = $("#loraxtemplate").html();
-    var compiled = Handelbars.compile(template);
-    var html = compiled(this.model.attributes);
+    // var template = $("#loraxtemplate").html();
+    // var compiled = Handelbars.compile(template);
+    // var html = compiled(this.model.attributes);
     this.$el.html(html);
+    var that = this;
+    if(this.template){
+  
+      var html = this.template(this.model.attributes);
+      this.$el.html(html);
+
+    } else {
+      $.get("/signup_template").done(function(template){
+        that.template = Handlebars.compile(template);  
+        var html = that.template(this.model.attributes);
+        that.$el.html(html);
+      });
+    }
+
+
     return this;
   }
 });
 
 var LoraxCollectionView = Backbone.View.extend({
+  template: 
   intialize: function(){
     this.listenTo(this.collection, "reset", this.render);
   },
@@ -55,13 +70,23 @@ var LoraxCollectionView = Backbone.View.extend({
 
 var AppRouter = Backbone.Router.extend({
   routes: {
-    "": "index"
+    "": "index",
+    "signup": "signup"
   },
   index: function(){
-    var collection = new LoraxCollection();
-    collection.fetch({ reset: true });
-    var view = new LoraxCollectionView({collection: collection});
+    console.log("LOADING INDEX???")
+    // var collection = new LoraxCollection();
+    // collection.fetch({ reset: true });
+    // var view = new LoraxCollectionView({collection: collection});
     // $(".app").html(view.render().el);
     $(".app").html("<div>hello!</div>");
+  },
+  signup: function () {
+    console.log("signing up!!!!")
+    $.get("/signup_template").done(function(data){
+      var indexTemplate = Handlebars.compile(data);
+      var html = indexTemplate({name: "SAM AND GRAHAM"});
+      $("body").html(html)
+    })
   }
 });

@@ -3,8 +3,8 @@ var User = require('../app/models/user');
 var Plant = require('../app/models/plant');
 
 exports.index = function(req, res) {
-  db.lorax.find(function(err, lorax) {
-    var data = JSON.stringify(lorax);
+  User.find(function(err, user) {
+    var data = JSON.stringify(user);
     res.render("layout", {
       appData: data
     });

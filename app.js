@@ -9,6 +9,7 @@
  var path = require('path');
  var ejs = require('ejs');
  var routes = require('./routes');
+ var request = require('request');
 
 
 // mongoose.connect(configDB.url);
@@ -54,6 +55,24 @@ require('./config/passport')(passport);
 app.get('/', routes.index);
 app.get('/test', routes.test);
 app.post('/createplant', routes.createplant);
+
+//testing out showing twitter feed
+app.get('/tweets/:username', function(req,res){
+  var username = req.params.username;
+  options = {
+    protocol: "http",
+    host: 'api.twitter.com',
+    pathname: '/1.1/statuses/user_timeline.json',
+    query: { screen_name: username, count: 10 }
+  };
+
+  var twitterUrl = url.format(options);
+  request(twitterUrl).pipe(res);
+  // request(url, function(err, res, body){
+  //   var tweets = JSON.parse(body);
+  //   response.render('tweets.ejs', {tweets: tweets, name: username});
+  // });
+});
 
 
  var port = Number(process.env.PORT || 5000);
