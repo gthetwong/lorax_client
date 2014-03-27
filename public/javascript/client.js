@@ -19,40 +19,52 @@ var NewPlantView = Backbone.View.extend({
     return this;
   },
   submit: function(){
-
   }
-
 });
 
-var LoraxView = Backbone.View.extend({
-  tagName: "li",
-  className: "lorax",
+var SignupView = Backbone.View.extend({
   render: function(){
     // var template = $("#loraxtemplate").html();
     // var compiled = Handelbars.compile(template);
     // var html = compiled(this.model.attributes);
-    this.$el.html(html);
+    // this.$el.html(html);
     var that = this;
     if(this.template){
-  
       var html = this.template(this.model.attributes);
       this.$el.html(html);
-
     } else {
       $.get("/signup_template").done(function(template){
-        that.template = Handlebars.compile(template);  
-        var html = that.template(this.model.attributes);
+        // that.template = Handlebars.compile(template);  
+        // var html = that.template(this.model.attributes);
+        var Template = Handlebars.compile(template);
+        var html = Template({message: ""});
         that.$el.html(html);
       });
     }
+    return this;
+  }
+});
 
-
+var LoginView = Backbone.View.extend({
+  render: function(){
+    var that = this;
+    if(this.template){
+      var html = this.template(this.model.attributes);
+      this.$el.html(html);
+    } else {
+      $.get("/login_template").done(function(template){
+        var Template = Handlebars.compile(template);
+        var html = Template({message: ""});
+        console.log("log in with BB");
+        that.$el.html(html);
+      });
+    }
     return this;
   }
 });
 
 var LoraxCollectionView = Backbone.View.extend({
-  template: 
+
   intialize: function(){
     this.listenTo(this.collection, "reset", this.render);
   },
@@ -71,10 +83,11 @@ var LoraxCollectionView = Backbone.View.extend({
 var AppRouter = Backbone.Router.extend({
   routes: {
     "": "index",
-    "signup": "signup"
+    "signup": "signup",
+    "login" : "login"
   },
   index: function(){
-    console.log("LOADING INDEX???")
+    console.log("LOADING INDEX???");
     // var collection = new LoraxCollection();
     // collection.fetch({ reset: true });
     // var view = new LoraxCollectionView({collection: collection});
@@ -82,11 +95,15 @@ var AppRouter = Backbone.Router.extend({
     $(".app").html("<div>hello!</div>");
   },
   signup: function () {
-    console.log("signing up!!!!")
-    $.get("/signup_template").done(function(data){
-      var indexTemplate = Handlebars.compile(data);
-      var html = indexTemplate({name: "SAM AND GRAHAM"});
-      $("body").html(html)
-    })
+    var view = new SignupView();
+    $("body").html(view.render().el);
+  },
+  login: function() {
+    var view = new LoginView();
+    $("body").html(view.render().el);
   }
 });
+
+
+
+

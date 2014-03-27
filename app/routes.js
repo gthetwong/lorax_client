@@ -6,14 +6,19 @@ module.exports = function(app, passport){
   // });
 
   app.get('/login', function(req,res){
-    res.render('login.ejs', {message: req.flash('loginMessage')});
+    res.render('layout.ejs', {message: req.flash('loginMessage')});
+  });
+
+  app.get('/login_template', function(req,res){
+    res.render('login.html'); //, {message: req.flash('loginMessage')});
   });
 
   app.get('/signup', function(req,res){
     res.render('layout.ejs', {message: req.flash('signupMessage')});
   });
+
   app.get('/signup_template', function(req,res){
-    res.render('signup.ejs', {message: req.flash('signupMessage')});
+    res.render('signup.html'); //, {message: req.flash('signupMessage')});
   });
 
   app.get('/profile', isLoggedIn, function(req,res){
