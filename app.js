@@ -3,14 +3,49 @@
  var mongoose = require('mongoose');
  var passport = require('passport');
  var flash = require('connect-flash');
- var configDB = require('./config/database.js');
+ // var configDB = require('./config/database.js');
  var logfmt = require("logfmt");
  var url = require('url');
  var path = require('path');
  var ejs = require('ejs');
  var routes = require('./routes');
 
-mongoose.connect(configDB.url);
+
+// mongoose.connect(configDB.url);
+var mongo = require('mongodb');
+
+var uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/HelloMongoose';
+var theport = process.env.PORT || 5000;
+var test = mongoose.connect(uristring, function(err, res){
+  if(err){
+    console.log('Error connecting to: ' + uristring + '. ' + err);
+  } else{
+    console.log('Succeeded connecting to: '+ uristring);
+  }
+});
+
+var userSchema = new mongoose.Schema({
+  name: {
+    first: String,
+    last: {type: String, trim: true}
+  },
+  age: {type:Number, min:0}
+});
+
+var PUser = mongoose.model('PowerUsers', userSchema);
+
+var graham = new PUser({
+  name: {first: 'Graham', last: 'Wong'},
+  age: 24
+});
+
+graham.save(function(err) {
+  if (err){
+    console.log("error saving!");
+  }
+});
+
+
 
  // all environments
 // app.set('port', process.env.PORT || 3000);
@@ -49,7 +84,16 @@ require('./app/routes.js')(app,passport);
 require('./config/passport')(passport);
 
 app.get('/', routes.index);
-app.get('/lorax', routes.lorax);
+// app.get('/lorax', routes.lorax);
+app.get('/test', function(req, res){
+  PUser.find({}).exec(function(err,result){
+    if(!err){
+      res.send(result);
+    } else{
+      console.log(err);
+    }
+  });
+});
 
  var port = Number(process.env.PORT || 5000);
 
