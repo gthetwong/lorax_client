@@ -9,7 +9,6 @@
  var path = require('path');
  var ejs = require('ejs');
  var routes = require('./routes');
- var User = require('./app/models/user');
 
  var Plant = require('./app/models/plant');
 
@@ -77,19 +76,20 @@ require('./app/routes.js')(app,passport);
 require('./config/passport')(passport);
 
 app.get('/', routes.index);
+app.get('/test', routes.test);
 // app.get('/lorax', routes.lorax);
-app.get('/test', function(req, res){
-  User.find({}).exec(function(err,result){
-    if(!err){
-      var user = {};
-      user.displayName = result[1].twitter.displayName;
-      user.username = result[1].twitter.username;
-      res.send(user);
-    } else{
-      console.log(err);
-    }
-  });
-});
+// app.get('/test', function(req, res){
+//   User.find({}).exec(function(err,result){
+//     if(!err){
+//       var user = {};
+//       user.displayName = result[1].twitter.displayName;
+//       user.username = result[1].twitter.username;
+//       res.send(user);
+//     } else{
+//       console.log(err);
+//     }
+//   });
+// });
 
  var port = Number(process.env.PORT || 5000);
 
