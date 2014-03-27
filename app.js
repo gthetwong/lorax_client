@@ -7,6 +7,7 @@
  var logfmt = require("logfmt");
  var url = require('url');
  var path = require('path');
+ var ejs = require('ejs');
 
 mongoose.connect(configDB.url);
 
@@ -19,14 +20,16 @@ app.set('views', path.join(__dirname, 'views'));
 // }));
 // app.set('view engine', 'handlebars');
 // app.use(express.favicon());
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
 app.use(express.logger());
 app.use(express.cookieParser());
 app.use(express.bodyParser());  // including this line to try app.post below
 app.use(express.methodOverride());
-app.use(express.session({ secret: 'cookiemonsterlovescookies'}));
-// app.use(express.json());
-// app.use(express.urlencoded());
-// app.use(flash());
+app.use(express.session({ secret: 'cookiemonsterlovescookies' }));
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
@@ -39,13 +42,10 @@ if ('development' == app.get('env')) {
   app.use(express.logger('dev'));
 }
 
-require('./app/routes.js')(app, passport);
+require('./app/routes.js')(app,passport);
 require('./config/passport')(passport);
 
-//  app.get('/', function(req, res){
-//res.send('Hello World!');
-//  hits backbone router or
-// });
+ // app.get('/', routes.index);
 
  var port = Number(process.env.PORT || 5000);
 

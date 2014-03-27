@@ -5,7 +5,7 @@ ClientApp.Routers.Main = Backbone.Router.extend({
   },
 
   main: function(){
-    
+    var view = 
   }
 
 });
