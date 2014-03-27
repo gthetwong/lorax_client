@@ -63,6 +63,24 @@ var LoginView = Backbone.View.extend({
   }
 });
 
+var ProfileView = Backbone.View.extend({
+  render: function(){
+    var that = this;
+    if(this.template){
+      var html = this.template(this.model.attributes);
+      this.$el.html(html);
+    } else {
+      $.get("/profile_template").done(function(template){
+        var Template = Handlebars.compile(template);
+        var html = Template({message: ""});
+        console.log("profile with BB");
+        that.$el.html(html);
+      });
+    }
+    return this;
+  }
+});
+
 var LoraxCollectionView = Backbone.View.extend({
 
   intialize: function(){
@@ -84,7 +102,8 @@ var AppRouter = Backbone.Router.extend({
   routes: {
     "": "index",
     "signup": "signup",
-    "login" : "login"
+    "login" : "login",
+    "profile": "profile"
   },
   index: function(){
     console.log("LOADING INDEX???");
@@ -101,7 +120,12 @@ var AppRouter = Backbone.Router.extend({
   login: function() {
     var view = new LoginView();
     $("body").html(view.render().el);
+  },
+  profile: function() {
+    var view = new ProfileView();
+    $("body").html(view.render().el);
   }
+
 });
 
 
