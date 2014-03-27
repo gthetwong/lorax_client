@@ -43,6 +43,7 @@ var AppRouter = Backbone.Router.extend({
     var collection = new LoraxCollection();
     collection.fetch({ reset: true });
     var view = new LoraxCollectionView({collection: collection});
-    $(".app").html(view.render().el);
+    // $(".app").html(view.render().el);
+    $(".app").html("<div>hello!</div>");
   }
 });

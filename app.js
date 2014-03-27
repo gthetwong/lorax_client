@@ -49,6 +49,7 @@ require('./app/routes.js')(app,passport);
 require('./config/passport')(passport);
 
 app.get('/', routes.index);
+app.get('/lorax', routes.lorax);
 
  var port = Number(process.env.PORT || 5000);
 
