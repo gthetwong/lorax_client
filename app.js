@@ -10,6 +10,7 @@
  var ejs = require('ejs');
  var routes = require('./routes');
  var User = require('./app/models/user');
+
  var Plant = require('./app/models/plant');
 
 
@@ -17,11 +18,12 @@
 var mongo = require('mongodb');
 
 var uristring = configDB.url ;// process.env.MONGOLAB_URI || 'mongodb://localhost/HelloMongoose';
+
 var theport = process.env.PORT || 5000;
 var test = mongoose.connect(uristring, function(err, res){
   if(err){
     console.log('Error connecting to: ' + uristring + '. ' + err);
-  } else{
+  } else {
     console.log('Succeeded connecting to: '+ uristring);
   }
 });
@@ -50,14 +52,7 @@ var test = mongoose.connect(uristring, function(err, res){
 
 
  // all environments
-// app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
-// app.engine('handlebars', exphbs({
-//   defaultLayout: 'main',
-//   layoutsDir: app.get('views') + '/layouts'
-// }));
-// app.set('view engine', 'handlebars');
-// app.use(express.favicon());
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.use(express.logger());
@@ -106,11 +101,4 @@ app.get('/test', function(req, res){
 	console.log("Listening on " + port);
 });
 
-//backbone routes
-//backbone views
-//handlebars
-//model associations
-//api request
-//oauth twitter
-//
 
