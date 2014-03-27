@@ -11,10 +11,6 @@
  var routes = require('./routes');
  var request = require('request');
 
-
-
-
-// mongoose.connect(configDB.url);
 var mongo = require('mongodb');
 
 var uristring = configDB.url; //process.env.MONGOLAB_URI; // || 'mongodb://localhost/HelloMongoose';
@@ -53,11 +49,6 @@ if ('development' == app.get('env')) {
 require('./app/routes.js')(app,passport);
 require('./config/passport')(passport);
 
-//backbone routes
-// app.get('/', routes.getplants);
-//app.get('/test', routes.test);
-// app.post('/createplant', routes.createplant);
-
 //testing out showing twitter feed
 app.get('/tweets/:username', function(req,res){
   var username = req.params.username;
@@ -82,27 +73,3 @@ app.get('/tweets/:username', function(req,res){
  app.listen(port, function(){
 	console.log("Listening on " + port);
 });
-
-
-
-// var userSchema = new mongoose.Schema({
-//   name: {
-//     first: String,
-//     last: {type: String, trim: true}
-//   },
-//   age: {type:Number, min:0}
-// });
-
-// var PUser = mongoose.model('PowerUsers', userSchema);
-
-// var graham = new PUser({
-//   name: {first: 'Graham', last: 'Wong'},
-//   age: 24
-// });
-
-// graham.save(function(err) {
-//   if (err){
-//     console.log("error saving!");
-//   }
-// });
-

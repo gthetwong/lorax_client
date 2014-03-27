@@ -1,16 +1,5 @@
-// var db = require("../database.js");
 var User = require('../app/models/user');
 var Plant = require('../app/models/plant');
-
-exports.index = function(req, res) {
-  User.find(function(err, user) {
-    var data = JSON.stringify(user);
-    res.render("layout", {
-      appData: data
-    });
-  });
-  console.log("at index");
-};
 
 exports.test = function(req, res){
   User.find({}).exec(function(err,result){
