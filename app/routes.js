@@ -22,7 +22,13 @@ module.exports = function(app, passport){
   });
 
   app.get('/profile', isLoggedIn, function(req,res){
-    res.render('profile.ejs', {
+    res.render('layout.ejs', {
+      user : req.user
+    });
+  });
+
+  app.get('/profile_template', isLoggedIn, function(req,res){
+    res.render('profile.html', {
       user : req.user
     });
   });

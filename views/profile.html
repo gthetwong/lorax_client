@@ -1,0 +1,31 @@
+<div>
+
+  <div>
+    <h1> Profile Page with BB</h1>
+    <a href="/logout">Logout</a>
+  </div>
+
+  <div>
+
+
+    <!-- LOCAL INFORMATION -->
+    <div>
+      <div>
+        <h3> Local</h3>
+
+          <p>
+            <strong>id</strong>: <%= user._id %><br>
+            <strong>email</strong>: <%= user.local.email %><br>
+            <strong>password</strong>: <%= user.local.password %>
+            <strong>id</strong>: <%= user.twitter.id %><br>
+            <strong>token</strong>: <%= user.twitter.token %><br>
+            <strong>username</strong>: <%= user.twitter.username %><br>
+            <strong>displayName</strong>: <%= user.twitter.displayName %>
+          </p>
+
+      </div>
+    </div>
+
+  </div>
+
+</div> 
