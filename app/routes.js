@@ -1,12 +1,12 @@
 // routes.js
 
 module.exports = function(app, passport){
-  // app.get('/', function(req,res){
-  //   res.render('index.ejs');
-  // });
+  app.get('/', function(req,res){
+    res.render('index.html');
+  });
 
   app.get('/login', function(req,res){
-    res.render('layout.ejs', {message: req.flash('loginMessage')});
+    res.render('index.html', {message: req.flash('loginMessage')});
   });
 
   app.get('/login_template', function(req,res){
@@ -14,7 +14,7 @@ module.exports = function(app, passport){
   });
 
   app.get('/signup', function(req,res){
-    res.render('layout.ejs', {message: req.flash('signupMessage')});
+    res.render('index.html', {message: req.flash('signupMessage')});
   });
 
   app.get('/signup_template', function(req,res){
@@ -22,7 +22,7 @@ module.exports = function(app, passport){
   });
 
   app.get('/profile', isLoggedIn, function(req,res){
-    res.render('layout.ejs', {
+    res.render('index.html', {
       user : req.user
     });
   });

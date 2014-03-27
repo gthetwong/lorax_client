@@ -11,6 +11,9 @@
  var routes = require('./routes');
  var request = require('request');
 
+//passport routes for login
+require('./app/routes.js')(app,passport);
+require('./config/passport')(passport);
 
 
 
@@ -49,14 +52,8 @@ if ('development' == app.get('env')) {
   app.use(express.logger('dev'));
 }
 
-//passport routes for login
-require('./app/routes.js')(app,passport);
-require('./config/passport')(passport);
 
-//backbone routes
-app.get('/', routes.getplants);
-//app.get('/test', routes.test);
-app.post('/createplant', routes.createplant);
+
 
 //testing out showing twitter feed
 app.get('/tweets/:username', function(req,res){
@@ -85,24 +82,4 @@ app.get('/tweets/:username', function(req,res){
 
 
 
-// var userSchema = new mongoose.Schema({
-//   name: {
-//     first: String,
-//     last: {type: String, trim: true}
-//   },
-//   age: {type:Number, min:0}
-// });
-
-// var PUser = mongoose.model('PowerUsers', userSchema);
-
-// var graham = new PUser({
-//   name: {first: 'Graham', last: 'Wong'},
-//   age: 24
-// });
-
-// graham.save(function(err) {
-//   if (err){
-//     console.log("error saving!");
-//   }
-// });
 

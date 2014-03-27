@@ -2,21 +2,20 @@
 var User = require('../app/models/user');
 var Plant = require('../app/models/plant');
 
-exports.index = function(req, res) {
-  User.find(function(err, user) {
-    var data = JSON.stringify(user);
-    res.render("layout", {
-      appData: data
-    });
-  });
-};
+// exports.index = function(req, res) {
+//   User.find(function(err, user) {
+//     var data = JSON.stringify(user);
+//     res.render("layout", {
+//       appData: data
+//     });
+//   });
+// };
 
 
 exports.getplants = function(req, res) {
  Plant.find({}).exec(function(err, result) {
     res.send(result);
   });
-  console.log("at index");
 };
 
 
@@ -43,10 +42,13 @@ exports.createplant = function(req, res){
     } 
   });
   plant.save(function(err){
-    if(err){
-      console.log("err");
+    if(!err){
+    //callback that sends ajax request to service layer
     }
+      console.log("err");
   });
+
+
 
 };
 
