@@ -12,6 +12,5 @@ exports.index = function(req, res) {
 
 exports.lorax = function(req,res){
   console.log("lorax.all");
-
 };
 
