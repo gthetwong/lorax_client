@@ -14,7 +14,7 @@
 var mongo = require('mongodb');
 
 var uristring = configDB.url; //process.env.MONGOLAB_URI; // || 'mongodb://localhost/HelloMongoose';
-var theport = process.env.PORT || 5000;
+// var theport = process.env.PORT || 5000;
 var test = mongoose.connect(uristring, function(err, res){
   if(err){
     console.log('Error connecting to: ' + uristring + '. ' + err);
@@ -69,8 +69,6 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
   app.use(express.logger('dev'));
 }
-
-
 
 require('./app/routes.js')(app,passport);
 require('./config/passport')(passport);
