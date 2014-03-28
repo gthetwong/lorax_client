@@ -88,10 +88,6 @@ var PlantView = Backbone.View.extend({
 });
 
 var NewPlantView = Backbone.View.extend({
-  className: "newplant",
-  // events: {
-  //   "click something" : "submit"
-  // },
   render: function(){
     var that = this;
     if(this.template){
@@ -99,14 +95,13 @@ var NewPlantView = Backbone.View.extend({
       this.$el.html(html);
     } else {
       $.get("/api/new_plant_template").done(function(template){
+        console.log(template);
         var Template = Handlebars.compile(template);
         var html = Template();
         that.$el.html(html);
       });
     }
     return this;
-  },
-  submit: function(){
   }
 });
 
@@ -134,6 +129,7 @@ var AppRouter = Backbone.Router.extend({
     "login" : "login",
     "profile": "profile",
     "newplant": "newplant"
+
   },
   index: function(){
     
