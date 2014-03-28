@@ -85,6 +85,9 @@ app.get('/tweets/:username', function(req,res){
   // });
 });
 
+var tweet = require('./app/tweet.js');
+app.get('/tweet', tweet.sendTweet);
+
 
  var port = Number(process.env.PORT || 5000);
 

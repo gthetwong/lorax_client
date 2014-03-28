@@ -14,20 +14,20 @@ exports.test = function(req, res){
   });
 };
 
-exports.createplant = function(req, res){
-  var plant = new Plant({ 
-    details: { 
-      pi_serial_id : pi_serial_id,
-      redline      : redline,
-      nickname     : nickname,
-      owner_id     : owner_id
-    } 
-  });
-  plant.save(function(err){
-    if(err){
-      console.log("err");
-    }
-  });
+// exports.createplant = function(req, res){
+//   var plant = new Plant({ 
+//     details: { 
+//       pi_serial_id : pi_serial_id,
+//       redline      : redline,
+//       nickname     : nickname,
+//       owner_id     : owner_id
+//     } 
+//   });
+//   plant.save(function(err){
+//     if(err){
+//       console.log("err");
+//     }
+//   });
 
-};
+// };
 

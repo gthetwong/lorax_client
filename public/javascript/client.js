@@ -14,8 +14,6 @@ var CurrentUser = Backbone.Model.extend({
   }
 });
 
-
-
 var SignupView = Backbone.View.extend({
   render: function(){
     var that = this;
@@ -43,7 +41,6 @@ var LoginView = Backbone.View.extend({
       $.get("/login_template").done(function(template){
         var Template = Handlebars.compile(template);
         var html = Template({message: ""});
-        console.log("log in with BB");
         that.$el.html(html);
       });
     }
@@ -66,7 +63,6 @@ var ProfileView = Backbone.View.extend({
         that.template = Handlebars.compile(template);
         console.log(that.model.attributes);
         var html = that.template(that.model.attributes);
-        console.log("profile with BB");
         that.$el.html(html);
      });
     }
@@ -166,7 +162,8 @@ var AppRouter = Backbone.Router.extend({
     "signup": "signup",
     "login" : "login",
     "profile": "profile",
-    "new_plant": "new_plant"
+    "newplant": "newplant"
+
   },
   index: function(){
     
@@ -181,17 +178,15 @@ var AppRouter = Backbone.Router.extend({
   },
   profile: function() {
     var current_user = new CurrentUser();
-    console.log("Running router");
     var view = new ProfileView({model: current_user});
     $("body").html(view.render().el);
     var new_plant = new NewPlantView({model: current_user});
     $("body").append(new_plant.render().el);
   },
-  new_plant: function(){
+  newplant: function() {
     var view = new NewPlantView();
     $("body").html(view.render().el);
   }
-
 });
 
 
