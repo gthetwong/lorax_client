@@ -1,10 +1,10 @@
-var plant = Backbone.Model.extend({
+var Plant = Backbone.Model.extend({
   idAttribute: "_id",
-  urlRoot: ""
+  url: ""
 });
 
-var plantCollection = Backbone.Collection.extend({
-  model: plant
+var PlantCollection = Backbone.Collection.extend({
+  model: Plant
 });
 
 var CurrentUser = Backbone.Model.extend({
@@ -87,6 +87,10 @@ var PlantView = Backbone.View.extend({
 });
 
 var NewPlantView = Backbone.View.extend({
+  events: {
+    "submit ": "create"
+  },
+
   render: function(){
     var that = this;
     if(this.template){
@@ -94,13 +98,43 @@ var NewPlantView = Backbone.View.extend({
       this.$el.html(html);
     } else {
       $.get("/api/new_plant_template").done(function(template){
-        console.log(template);
         var Template = Handlebars.compile(template);
         var html = Template();
         that.$el.html(html);
       });
     }
     return this;
+  },
+  create: function(event){
+    event.preventDefault();
+    console.log(event);
+    var name = event.target[0].value;
+    var type = event.target[1].value;
+    var serial = event.target[2].value;
+    var redline = event.target[3].value;
+    var owner_id = this.model.attributes._id;
+    console.log(name);
+    console.log(type);
+    console.log(serial);
+    console.log(redline);
+    console.log(owner_id);
+    var data = {
+      pi_serial_id: serial,
+      redline: redline,
+      nickname: name,
+      owner_id: owner_id,
+      plant_type: type
+    };
+    var plant = new Plant(data);
+    // plant.save(function(err){
+    //   if (!err){
+        $.post("/register/"+owner_id+"/"+serial+"/"+redline).done(function(){
+          console.log("success!");
+         });
+    //   }else{
+    //     console.log(err);
+    //   }
+    // });
   }
 });
 
@@ -145,6 +179,8 @@ var AppRouter = Backbone.Router.extend({
     var current_user = new CurrentUser();
     var view = new ProfileView({model: current_user});
     $("body").html(view.render().el);
+    var new_plant = new NewPlantView({model: current_user});
+    $("body").append(new_plant.render().el);
   },
   newplant: function() {
     var view = new NewPlantView();

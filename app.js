@@ -56,6 +56,39 @@ app.get('/api/users', api_routes.getusers);
 
 
 
+app.post('/register/:owner/:serial/:redline', function(req, res){
+  var data = req.params;
+  request.post("http://murmuring-crag-3099.herokuapp.com/register/"+data.owner+"/"+data.serial+"/"+data.redline);
+});
+
+
+app.get('/new_plant', function(req,res){
+    res.render('index.html');
+  });
+
+
+
+
+//testing out showing twitter feed
+app.get('/tweets/:username', function(req,res){
+  var username = req.params.username;
+  options = {
+    protocol: "http",
+    host: 'api.twitter.com',
+    pathname: '/1.1/statuses/user_timeline.json',
+    query: { screen_name: username, count: 10 }
+  };
+  var twitterUrl = url.format(options);
+  request(twitterUrl).pipe(res);
+  // request(url, function(err, res, body){
+  //   var tweets = JSON.parse(body);
+  //   response.render('tweets.ejs', {tweets: tweets, name: username});
+  // });
+});
+
+var tweet = require('./app/tweet.js');
+app.get('/tweet', tweet.sendTweet);
+
  var port = Number(process.env.PORT || 5000);
 
  app.listen(port, function(){
