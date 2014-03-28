@@ -65,6 +65,25 @@ module.exports = function(app, passport){
       failureRedirect : '/'
     }));
 
+  // app.get('/connect/local', function(req, res) {
+  //   res.render('connect-local.ejs', { message: req.flash('loginMessage') });
+  // });
+  // app.post('/connect/local', passport.authenticate('local-signup', {
+  //   successRedirect : '/profile', // redirect to the secure profile section
+  //   failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
+  //   failureFlash : true // allow flash messages
+  // }));
+
+// send to twitter to do the authentication
+  // app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
+
+  // // handle the callback after twitter has authorized the user
+  // app.get('/connect/twitter/callback',
+  //   passport.authorize('twitter', {
+  //     successRedirect : '/profile',
+  //     failureRedirect : '/'
+  // }));
+
 };
 
 function isLoggedIn(req,res,next){
