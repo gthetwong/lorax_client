@@ -2,6 +2,13 @@ var Lorax = Backbone.Model.extend({
   idAttribute: "_id"
 });
 
+var CurrentUser = Backbone.Model.extend({
+  url: "/current",
+  initialize: function(){
+    this.fetch();
+  }
+});
+
 var LoraxCollection = Backbone.Collection.extend({
   model: Lorax
 });
@@ -58,19 +65,28 @@ var LoginView = Backbone.View.extend({
 });
 
 var ProfileView = Backbone.View.extend({
+  initialize: function(){
+    this.listenTo(this.model, "change", this.render);
+  },
   render: function(){
     var that = this;
+
     if(this.template){
       var html = this.template(this.model.attributes);
       this.$el.html(html);
     } else {
       $.get("/profile_template").done(function(template){
-        var Template = Handlebars.compile(template);
-        var html = Template({message: ""});
+       
+        that.template = Handlebars.compile(template);
+        console.log(that.model.attributes);
+        var html = that.template(that.model.attributes);
         console.log("profile with BB");
         that.$el.html(html);
-      });
+        alert();
+
+     });
     }
+    
     return this;
   }
 });
@@ -111,7 +127,9 @@ var AppRouter = Backbone.Router.extend({
     $("body").html(view.render().el);
   },
   profile: function() {
-    var view = new ProfileView();
+    var current_user = new CurrentUser();
+    console.log("Running router")
+    var view = new ProfileView({model: current_user});
     $("body").html(view.render().el);
   }
 

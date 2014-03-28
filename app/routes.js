@@ -1,5 +1,5 @@
 // routes.js
-
+var _ = require("underscore");
 module.exports = function(app, passport){
   app.get('/', function(req,res){
     res.render('index.html');
@@ -21,17 +21,19 @@ module.exports = function(app, passport){
     res.render('signup.html'); //, {message: req.flash('signupMessage')});
   });
 
-  app.get('/profile', isLoggedIn, function(req,res){
-    res.render('index.html', {
-      user : req.user
-    });
+  app.get("/profile", function(req,res){
+    res.render("index.html");
   });
 
-  app.get('/profile_template', isLoggedIn, function(req,res){
-    console.log(req.user);
-    res.render('profile.html', {
-      user : req.user
-    });
+  app.get('/current', isLoggedIn, function(req,res){
+    var user = {_id: req.user._id};
+    user.local = _.pick(req.user.local, "email");
+    user.twitter = _.pick(req.user.twitter, "id", "username", "displayName" );
+    res.send(user);
+  });
+
+  app.get('/profile_template', function(req,res){
+    res.render("profile.html");
   });
 
   app.get('/logout', function(req,res){
