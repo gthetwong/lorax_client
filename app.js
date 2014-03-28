@@ -8,16 +8,15 @@
  var url = require('url');
  var path = require('path');
  var ejs = require('ejs');
- var routes = require('./routes');
+ var api_routes = require('./routes/api.js');
+ var view_routes = require('./routes/views.js');
  var request = require('request');
+
 
 //passport routes for login
 require('./app/routes.js')(app,passport);
 require('./config/passport')(passport);
 
-
-
-// mongoose.connect(configDB.url);
 var mongo = require('mongodb');
 
 var uristring = configDB.url; //process.env.MONGOLAB_URI; // || 'mongodb://localhost/HelloMongoose';
@@ -52,6 +51,13 @@ if ('development' == app.get('env')) {
   app.use(express.logger('dev'));
 }
 
+app.get("/api/new_plant_template", view_routes.new_plant_template);
+app.get('/api/plant_template', view_routes.plant_template);
+
+app.get('/api/users', api_routes.getusers);
+
+
+
 
 
 
@@ -79,7 +85,3 @@ app.get('/tweets/:username', function(req,res){
  app.listen(port, function(){
 	console.log("Listening on " + port);
 });
-
-
-
-

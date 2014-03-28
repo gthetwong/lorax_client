@@ -6,7 +6,7 @@ module.exports = function(app, passport){
   });
 
   app.get('/login', function(req,res){
-    res.render('index.html', {message: req.flash('loginMessage')});
+    res.render('index.html', {message: 'signupMessage'});
   });
 
   app.get('/login_template', function(req,res){
@@ -14,7 +14,7 @@ module.exports = function(app, passport){
   });
 
   app.get('/signup', function(req,res){
-    res.render('index.html', {message: req.flash('signupMessage')});
+    res.render('index.html', {message: 'signupMessage'});
   });
 
   app.get('/signup_template', function(req,res){
@@ -28,6 +28,7 @@ module.exports = function(app, passport){
   });
 
   app.get('/profile_template', isLoggedIn, function(req,res){
+    console.log(req.user);
     res.render('profile.html', {
       user : req.user
     });
@@ -41,13 +42,13 @@ module.exports = function(app, passport){
   app.post('/signup', passport.authenticate('local-signup', {
     successRedirect : '/profile', // redirect to the secure profile section
     failureRedirect : '/signup', // redirect back to the signup page if there is an error
-    failureFlash : true // allow flash messages
+    // failureFlash : true // allow flash messages
   }));
 
   app.post('/login', passport.authenticate('local-login', {
     successRedirect : '/profile', // redirect to the secure profile section
     failureRedirect : '/login', // redirect back to the signup page if there is an error
-    failureFlash : true // allow flash messages
+    // failureFlash : true // allow flash messages
   }));
 
   app.get('/auth/twitter', passport.authenticate('twitter'));

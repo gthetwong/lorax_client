@@ -1,41 +1,21 @@
-var Lorax = Backbone.Model.extend({
-  idAttribute: "_id"
+var plant = Backbone.Model.extend({
+  idAttribute: "_id",
+  urlRoot: ''
 });
 
-var LoraxCollection = Backbone.Collection.extend({
-  model: Lorax
+var plantCollection = Backbone.Collection.extend({
+  model: plant 
 });
 
-var NewPlantView = Backbone.View.extend({
-  className: "newplant",
-  events: {
-    "click something" : "submit"
-  },
-  render: function(){
-    var template = $("#newplanttemplate").html();
-    var compiled = Handelbars.compile(template);
-    var html = compiled(this.model.attributes);
-    this.$el.html(html);
-    return this;
-  },
-  submit: function(){
-  }
-});
 
 var SignupView = Backbone.View.extend({
   render: function(){
-    // var template = $("#loraxtemplate").html();
-    // var compiled = Handelbars.compile(template);
-    // var html = compiled(this.model.attributes);
-    // this.$el.html(html);
     var that = this;
     if(this.template){
       var html = this.template(this.model.attributes);
       this.$el.html(html);
     } else {
       $.get("/signup_template").done(function(template){
-        // that.template = Handlebars.compile(template);  
-        // var html = that.template(this.model.attributes);
         var Template = Handlebars.compile(template);
         var html = Template({message: ""});
         that.$el.html(html);
@@ -81,9 +61,27 @@ var ProfileView = Backbone.View.extend({
   }
 });
 
-var LoraxCollectionView = Backbone.View.extend({
 
-  intialize: function(){
+var PlantView = Backbone.View.extend({
+  render: function(){
+    var that = this;
+    if(this.template){
+      var html = this.template(this.model.attributes);
+      this.$el.html(html);
+    } else {
+      $.get("/api/plant_template").done(function(template){
+        var Template = Handlebars.compile(template);
+        var html = Template(this.model.attributes);
+        that.$el.html(html);
+      });
+    }
+    return this;
+  }
+});
+
+var PlantCollectionView = Backbone.View.extend({
+
+  initialize: function(){
     this.listenTo(this.collection, "reset", this.render);
   },
   tagName: "ul",
@@ -98,20 +96,48 @@ var LoraxCollectionView = Backbone.View.extend({
   }
 });
 
+var NewPlantView = Backbone.View.extend({
+  className: "newplant",
+  events: {
+    "click something" : "submit"
+  },
+  render: function(){
+    var that = this;
+    if(this.template){
+      var html = this.template;
+      this.$el.html(html);
+    } else {
+      $.get("/api/new_plant_template").done(function(template){
+        var Template = Handlebars.compile(template);
+        var html = Template();
+        that.$el.html(html);
+      });
+    }
+    return this;
+  },
+  submit: function(){
+  }
+});
+
+
+
+
+
+
+
+
+
 var AppRouter = Backbone.Router.extend({
   routes: {
     "": "index",
     "signup": "signup",
     "login" : "login",
-    "profile": "profile"
+    "profile": "profile",
+    "plant" : "plant",
+    "new_plant": "new_plant"
   },
   index: function(){
-    console.log("LOADING INDEX???");
-    // var collection = new LoraxCollection();
-    // collection.fetch({ reset: true });
-    // var view = new LoraxCollectionView({collection: collection});
-    // $(".app").html(view.render().el);
-    $(".app").html("<div>hello!</div>");
+    
   },
   signup: function () {
     var view = new SignupView();
@@ -123,6 +149,13 @@ var AppRouter = Backbone.Router.extend({
   },
   profile: function() {
     var view = new ProfileView();
+    $("body").html(view.render().el);
+  },
+  plant: function() {
+    var view = new PlantView({model: plant});
+  },
+  new_plant: function(){
+    var view = new NewPlantView();
     $("body").html(view.render().el);
   }
 

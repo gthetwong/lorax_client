@@ -1,15 +1,5 @@
-// var db = require("../database.js");
 var User = require('../app/models/user');
 var Plant = require('../app/models/plant');
-
-// exports.index = function(req, res) {
-//   User.find(function(err, user) {
-//     var data = JSON.stringify(user);
-//     res.render("layout", {
-//       appData: data
-//     });
-//   });
-// };
 
 
 exports.getplants = function(req, res) {
@@ -18,6 +8,11 @@ exports.getplants = function(req, res) {
   });
 };
 
+exports.getusers = function(req, res) {
+  User.find({}).exec(function(err, result){
+    res.send(result);
+  });
+};
 
 exports.test = function(req, res){
   User.find({}).exec(function(err,result){
