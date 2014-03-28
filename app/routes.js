@@ -1,12 +1,12 @@
 // routes.js
-
+var _ = require("underscore");
 module.exports = function(app, passport){
   app.get('/', function(req,res){
     res.render('index.html');
   });
 
   app.get('/login', function(req,res){
-    res.render('index.html', {message: 'signupMessage'});
+    res.render('index.html', {message: req.flash('loginMessage')});
   });
 
   app.get('/login_template', function(req,res){
@@ -14,24 +14,27 @@ module.exports = function(app, passport){
   });
 
   app.get('/signup', function(req,res){
-    res.render('index.html', {message: 'signupMessage'});
+    res.render('index.html', {message: req.flash('signupMessage')});
   });
 
   app.get('/signup_template', function(req,res){
     res.render('signup.html'); //, {message: req.flash('signupMessage')});
   });
 
-  app.get('/profile', isLoggedIn, function(req,res){
-    res.render('index.html', {
-      user : req.user
-    });
+  app.get("/profile", function(req,res){
+    res.render('index.html');
+  });
+
+  app.get('/current', isLoggedIn, function(req,res){
+    var user = {_id: req.user._id};
+    user.local = _.pick(req.user.local, "email");
+    user.twitter = _.pick(req.user.twitter, "id", "username", "displayName" );
+    res.send(user);
   });
 
   app.get('/profile_template', isLoggedIn, function(req,res){
     console.log(req.user);
-    res.render('profile.html', {
-      user : req.user
-    });
+    res.render('profile.html');
   });
 
   app.get('/logout', function(req,res){
@@ -42,13 +45,13 @@ module.exports = function(app, passport){
   app.post('/signup', passport.authenticate('local-signup', {
     successRedirect : '/profile', // redirect to the secure profile section
     failureRedirect : '/signup', // redirect back to the signup page if there is an error
-    // failureFlash : true // allow flash messages
+    failureFlash : true // allow flash messages
   }));
 
   app.post('/login', passport.authenticate('local-login', {
     successRedirect : '/profile', // redirect to the secure profile section
     failureRedirect : '/login', // redirect back to the signup page if there is an error
-    // failureFlash : true // allow flash messages
+    failureFlash : true // allow flash messages
   }));
 
   app.get('/auth/twitter', passport.authenticate('twitter'));
