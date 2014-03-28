@@ -27,11 +27,11 @@ var tweet = new twitter(auths);
 
 exports.sendTweet = function(req,res){
   var user = User.findOne({ 'twitter.username': req.params.username }, function(err, user) {
-      tweet.statuses("update", {status: "thanks! @" +user.twitter.username+", from Project Lorax"}, access.at, access.ats, function(er, d, r){
+      tweet.statuses("update", {status: "hello there! @" +user.twitter.username+" #projectlorax"}, access.at, access.ats, function(er, d, r){
     if(er){
         console.log(er);
       }
-  });
+    });
   });
 
 // console.log(User);

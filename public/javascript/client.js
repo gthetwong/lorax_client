@@ -54,7 +54,6 @@ var ProfileView = Backbone.View.extend({
   },
   render: function(){
     var that = this;
-
     if(this.template){
       var html = this.template(this.model.attributes);
       this.$el.html(html);
