@@ -1,6 +1,6 @@
 var Plant = Backbone.Model.extend({
   idAttribute: "_id",
-  url: ""
+  url: "/api/plant/:id"
 });
 
 var PlantCollection = Backbone.Collection.extend({
@@ -131,6 +131,7 @@ var NewPlantView = Backbone.View.extend({
     //   if (!err){
         $.post("/register/"+owner_id+"/"+serial+"/"+redline).done(function(){
           console.log("success!");
+          window.location.href('/profile');
          });
     //   }else{
     //     console.log(err);
@@ -180,8 +181,14 @@ var AppRouter = Backbone.Router.extend({
     var current_user = new CurrentUser();
     var view = new ProfileView({model: current_user});
     $("body").html(view.render().el);
+    
+    if (current_user.attributes.plant === {}){
     var new_plant = new NewPlantView({model: current_user});
     $("body").append(new_plant.render().el);
+  } else {
+    var plant = new PlantView({model: current_user.attributes.plant});
+    $("body").append(plant.render().el);
+  }
   },
   newplant: function() {
     var view = new NewPlantView();

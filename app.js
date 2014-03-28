@@ -53,7 +53,8 @@ require('./config/passport')(passport);
 app.get("/api/new_plant_template", view_routes.new_plant_template);
 app.get('/api/plant_template', view_routes.plant_template);
 app.get('/api/users', api_routes.getusers);
-
+app.get('/api/plants',api_routes.getplants);
+app.get('/api/plant/:id', api_routes.getplant);
 
 
 app.post('/register/:owner/:serial/:redline', function(req, res){

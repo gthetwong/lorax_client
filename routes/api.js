@@ -7,6 +7,12 @@ exports.getplants = function(req, res) {
   });
 };
 
+exports.getplant = function(req, res) {
+ Plant.find({"_id": req.params.id}).exec(function(err, result) {
+    res.send(result);
+  });
+};
+
 exports.getusers = function(req, res) {
   User.find({}).exec(function(err, result){
     res.send(result);
