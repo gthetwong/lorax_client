@@ -129,10 +129,10 @@ var NewPlantView = Backbone.View.extend({
     plant.save(data);
     
    
-    // $.post("/register/"+owner_id+"/"+serial+"/"+redline).done(function(){
-    //   console.log("success!");
-    //  });
-    // window.location.href('/profile');
+    $.post("/register/"+owner_id+"/"+serial+"/"+redline).done(function(){
+      console.log("success!");
+     });
+    window.location.href('/profile');
    
   }
 });
@@ -179,7 +179,8 @@ var AppRouter = Backbone.Router.extend({
     var view = new ProfileView({model: current_user});
     $("body").html(view.render().el);
     console.log(current_user);
-
+    //Check against plants with Owner Id = Current User Id
+    //if 0, then empty
     if (_.isEmpty(current_user.attributes.plants)){
       var new_plant = new NewPlantView({model: current_user});
       console.log("no plants yet");

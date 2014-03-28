@@ -54,6 +54,7 @@ app.get("/api/new_plant_template", view_routes.new_plant_template);
 app.get('/api/plant_template', view_routes.plant_template);
 app.get('/api/users', api_routes.getusers);
 app.get('/api/plants',api_routes.getplants);
+app.get('/api/plant', api_routes.getplant);
 app.post('/api/plant/', api_routes.createplant);
 
 
@@ -63,9 +64,6 @@ app.post('/register/:owner/:serial/:redline', function(req, res){
 });
 
 
-app.get('/new_plant', function(req,res){
-    res.render('index.html');
-  });
 
 
 

@@ -8,7 +8,8 @@ exports.getplants = function(req, res) {
 };
 
 exports.getplant = function(req, res) {
- Plant.find({"_id": req.params.id}).exec(function(err, result) {
+  console.log(req.body);
+ var query= Plant.find({}).exec(function(err, result) {
     res.send(result);
   });
 };
@@ -25,7 +26,7 @@ exports.createplant = function(req, res){
   var plant = new Plant({ 
     details: req.body
   });
-  
+
   plant.save(function(err){
     if(err){
       console.log("err");
