@@ -33,6 +33,7 @@ module.exports = function(app, passport){
     var user = {_id: req.user._id};
     user.local = _.pick(req.user.local, "email");
     user.twitter = _.pick(req.user.twitter, "id", "username", "displayName" );
+    user.plant = _.pick(req.user.plant, "pi_serial_id", "redline", "nickname", "owner_id", "plant_type");
     res.send(user);
   });
 

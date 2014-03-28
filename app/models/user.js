@@ -16,7 +16,11 @@ var userSchema = mongoose.Schema({
         username     : String
     },
     plant            : {
-        
+        pi_serial_id : String,
+        redline      : Number,
+        nickname     : String,
+        owner_id     : String,
+        plant_type   : String
     }
 
 });

@@ -1,6 +1,6 @@
 var Plant = Backbone.Model.extend({
   idAttribute: "_id",
-  url: "/api/plant/:id"
+  url: "/api/plant/"
 });
 
 var PlantCollection = Backbone.Collection.extend({
@@ -126,16 +126,14 @@ var NewPlantView = Backbone.View.extend({
       plant_type: type
     };
     var plant = new Plant(data);
-    // plant.save(function(err){
-    //   if (!err){
-        $.post("/register/"+owner_id+"/"+serial+"/"+redline).done(function(){
-          console.log("success!");
-          window.location.href('/profile');
-         });
-    //   }else{
-    //     console.log(err);
-    //   }
-    // });
+    plant.save(data);
+    
+   
+    // $.post("/register/"+owner_id+"/"+serial+"/"+redline).done(function(){
+    //   console.log("success!");
+    //  });
+    // window.location.href('/profile');
+   
   }
 });
 
@@ -180,13 +178,16 @@ var AppRouter = Backbone.Router.extend({
     var current_user = new CurrentUser();
     var view = new ProfileView({model: current_user});
     $("body").html(view.render().el);
-    
-    if (current_user.attributes.plant === {}){
-    var new_plant = new NewPlantView({model: current_user});
-    $("body").append(new_plant.render().el);
+    console.log(current_user);
+
+    if (_.isEmpty(current_user.attributes.plants)){
+      var new_plant = new NewPlantView({model: current_user});
+      console.log("no plants yet");
+      $("body").append(new_plant.render().el);
   } else {
-    var plant = new PlantView({model: current_user.attributes.plant});
-    $("body").append(plant.render().el);
+      var plant = new PlantView({model: current_user.attributes.plant});
+      console.log("has a plant");
+      $("body").append(plant.render().el);
   }
   },
   newplant: function() {

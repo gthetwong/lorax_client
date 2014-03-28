@@ -20,14 +20,12 @@ exports.getusers = function(req, res) {
 };
 
 exports.createplant = function(req, res){
+ 
+  console.log(req.body);
   var plant = new Plant({ 
-    details: { 
-      pi_serial_id : pi_serial_id,
-      redline      : redline,
-      nickname     : nickname,
-      owner_id     : owner_id
-    } 
+    details: req.body
   });
+  
   plant.save(function(err){
     if(err){
       console.log("err");
