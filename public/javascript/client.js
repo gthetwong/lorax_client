@@ -92,10 +92,6 @@ var PlantView = Backbone.View.extend({
 });
 
 var NewPlantView = Backbone.View.extend({
-  className: "newplant",
-  events: {
-    "click something" : "submit"
-  },
   render: function(){
     var that = this;
     if(this.template){
@@ -103,14 +99,13 @@ var NewPlantView = Backbone.View.extend({
       this.$el.html(html);
     } else {
       $.get("/api/new_plant_template").done(function(template){
+        console.log(template);
         var Template = Handlebars.compile(template);
         var html = Template();
         that.$el.html(html);
       });
     }
     return this;
-  },
-  submit: function(){
   }
 });
 
@@ -136,7 +131,8 @@ var AppRouter = Backbone.Router.extend({
     "": "index",
     "signup": "signup",
     "login" : "login",
-    "profile": "profile"
+    "profile": "profile",
+    "new_plant": "new_plant"
   },
   index: function(){
     
@@ -151,8 +147,12 @@ var AppRouter = Backbone.Router.extend({
   },
   profile: function() {
     var current_user = new CurrentUser();
-    console.log("Running router")
+    console.log("Running router");
     var view = new ProfileView({model: current_user});
+    $("body").html(view.render().el);
+  },
+  new_plant: function(){
+    var view = new NewPlantView();
     $("body").html(view.render().el);
   }
 
