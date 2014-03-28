@@ -71,21 +71,21 @@ app.get('/new_plant', function(req,res){
 
 
 //testing out showing twitter feed
-app.get('/tweets/:username', function(req,res){
-  var username = req.params.username;
-  options = {
-    protocol: "http",
-    host: 'api.twitter.com',
-    pathname: '/1.1/statuses/user_timeline.json',
-    query: { screen_name: username, count: 10 }
-  };
-  var twitterUrl = url.format(options);
-  request(twitterUrl).pipe(res);
-  // request(url, function(err, res, body){
-  //   var tweets = JSON.parse(body);
-  //   response.render('tweets.ejs', {tweets: tweets, name: username});
-  // });
-});
+// app.get('/tweets/:username', function(req,res){
+//   var username = req.params.username;
+//   options = {
+//     protocol: "http",
+//     host: 'api.twitter.com',
+//     pathname: '/1.1/statuses/user_timeline.json',
+//     query: { screen_name: username, count: 10 }
+//   };
+//   var twitterUrl = url.format(options);
+//   request(twitterUrl).pipe(res);
+//   // request(url, function(err, res, body){
+//   //   var tweets = JSON.parse(body);
+//   //   response.render('tweets.ejs', {tweets: tweets, name: username});
+//   // });
+// });
 
 var tweet = require('./app/tweet.js');
 app.get('/tweet', tweet.sendTweet);
