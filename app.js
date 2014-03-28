@@ -53,24 +53,8 @@ require('./config/passport')(passport);
 app.get("/api/new_plant_template", view_routes.new_plant_template);
 app.get('/api/plant_template', view_routes.plant_template);
 app.get('/api/users', api_routes.getusers);
-
-//testing out showing twitter feed
-app.get('/tweets/:username', function(req,res){
-  var username = req.params.username;
-  options = {
-    protocol: "http",
-    host: 'api.twitter.com',
-    pathname: '/1.1/statuses/user_timeline.json',
-    query: { screen_name: username, count: 10 }
-  };
-  var twitterUrl = url.format(options);
-  request(twitterUrl).pipe(res);
-  // request(url, function(err, res, body){
-  //   var tweets = JSON.parse(body);
-  //   response.render('tweets.ejs', {tweets: tweets, name: username});
-  // });
-});
-
+var tweet = require('./app/tweet.js');
+app.get('/tweet', tweet.sendTweet);
 
  var port = Number(process.env.PORT || 5000);
 
