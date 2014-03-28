@@ -1,6 +1,10 @@
 // routes.js
 var _ = require("underscore");
+  var tweet = require('./tweet.js');
 module.exports = function(app, passport){
+  app.get('/tweet/:username',
+    tweet.sendTweet);
+
   app.get('/', function(req,res){
     res.render('index.html');
   });
