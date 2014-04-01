@@ -30,7 +30,7 @@ app.engine('html', require('ejs').renderFile);
 app.use(express.logger());
 app.use(express.bodyParser());  // including this line to try app.post below
 app.use(express.cookieParser());
-app.use(express.session({ secret: 'cookiemonsterlovescookies' }));
+app.use(express.cookieSession({ secret: 'cookiemonsterlovescookies', cookie: { maxAge: 3600000 } }));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
