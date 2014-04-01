@@ -28,17 +28,17 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.use(express.logger());
-app.use(express.cookieParser());
 app.use(express.bodyParser());  // including this line to try app.post below
-app.use(express.methodOverride());
+app.use(express.cookieParser());
 app.use(express.session({ secret: 'cookiemonsterlovescookies' }));
-app.use(express.json());
-app.use(express.urlencoded());
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
 // app.use(logfmt.requestLogger());
 
 if ('development' == app.get('env')) {
@@ -63,27 +63,6 @@ app.post('/register/:owner/:serial/:redline', function(req, res){
   request.post("http://murmuring-crag-3099.herokuapp.com/register/"+data.owner+"/"+data.serial+"/"+data.redline);
 });
 
-
-
-
-
-
-//testing out showing twitter feed
-// app.get('/tweets/:username', function(req,res){
-//   var username = req.params.username;
-//   options = {
-//     protocol: "http",
-//     host: 'api.twitter.com',
-//     pathname: '/1.1/statuses/user_timeline.json',
-//     query: { screen_name: username, count: 10 }
-//   };
-//   var twitterUrl = url.format(options);
-//   request(twitterUrl).pipe(res);
-//   // request(url, function(err, res, body){
-//   //   var tweets = JSON.parse(body);
-//   //   response.render('tweets.ejs', {tweets: tweets, name: username});
-//   // });
-// });
 
 var tweet = require('./app/tweet.js');
 app.get('/tweet', tweet.sendTweet);

@@ -185,11 +185,11 @@ var AppRouter = Backbone.Router.extend({
       var new_plant = new NewPlantView({model: current_user});
       console.log("no plants yet");
       $("body").append(new_plant.render().el);
-  } else {
+    } else {
       var plant = new PlantView({model: current_user.attributes.plant});
       console.log("has a plant");
       $("body").append(plant.render().el);
-  }
+    }
   },
   newplant: function() {
     var view = new NewPlantView();
