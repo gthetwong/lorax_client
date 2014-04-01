@@ -6,7 +6,11 @@ module.exports = function(app, passport){
     tweet.sendTweet);
 
   app.get('/', function(req,res){
-    res.render('index.html');
+    if(req.isAuthenticated()){
+      res.render('index.html');
+    } else {
+      res.render('login.html');
+    }
   });
 
   app.get('/login', function(req,res){
@@ -26,10 +30,15 @@ module.exports = function(app, passport){
   });
 
   app.get("/profile", function(req,res){
-    res.render("index.html");
+    if(req.isAuthenticated()){
+      res.render('index.html');
+    } else {
+      res.render('login.html');
+    }
   });
 
   app.get('/current', isLoggedIn, function(req,res){
+    // console.log(req.user);
     var user = {_id: req.user._id};
     user.local = _.pick(req.user.local, "email");
     user.twitter = _.pick(req.user.twitter, "id", "username", "displayName" );
@@ -38,7 +47,11 @@ module.exports = function(app, passport){
   });
 
   app.get('/profile_template', function(req,res){
-    res.render("profile.html");
+    if(req.isAuthenticated()){
+      res.render('profile.html');
+    } else {
+      res.render('login.html');
+    }
   });
 
   app.get('/logout', function(req,res){

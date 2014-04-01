@@ -198,11 +198,12 @@ var AppRouter = Backbone.Router.extend({
 
   } else { //if current user has plants
       //"plant" is the current user's plant object
+
       var plant = new PlantView({model: current_user.attributes.plant});
       console.log("has a plant");
       //"plant" gets rendered into the view
       $("body").append(plant.render().el);
-  }
+      }
   }
 });
 
