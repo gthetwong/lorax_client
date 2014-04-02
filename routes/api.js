@@ -3,7 +3,7 @@ var Plant = require('../app/models/plant');
 
 exports.getplants = function(req, res) {
   console.log(req.user);
- Plant.find({}).exec(function(err, result) {
+ Plant.find({"owner_id" : req.user._id}).exec(function(err, result) {
     res.send(result);
   });
 };

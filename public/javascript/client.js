@@ -2,7 +2,7 @@ var Plant = Backbone.Model.extend({
   idAttribute: "_id",
   //this route links to a get request for a single plant. 
   //can we have it post to the create plant w/ data?
-  url: "/api/plant/:id"
+  url:'/api/plants'
 });
 
 var PlantCollection = Backbone.Collection.extend({
@@ -132,11 +132,14 @@ var NewPlantView = Backbone.View.extend({
     };
     //this is where the backbone model is created
     var plant = new Plant(data);
+    plant.isNew();
+    plant.save();
+    console.log(plant);
     
     
     //find model with same id as currentuser _id 
     //and then save the data to that model?
-    //NOT WORKING YET
+    //----------------NOT WORKING YET------------------
     // this.model.attributes.plant = data;
     // this.model.save();
        
