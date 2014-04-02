@@ -136,8 +136,9 @@ var NewPlantView = Backbone.View.extend({
     
     //find model with same id as currentuser _id 
     //and then save the data to that model?
-    this.model.attributes.plant = plant;
-    this.model.save(plant, {patch:true});
+    //NOT WORKING YET
+    // this.model.attributes.plant = data;
+    // this.model.save();
        
     //at some point here, we need to also push the data into the current user
     //maybe push the data object into current_user.attributes.plants 

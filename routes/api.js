@@ -2,6 +2,7 @@ var User = require('../app/models/user');
 var Plant = require('../app/models/plant');
 
 exports.getplants = function(req, res) {
+  console.log(req.user);
  Plant.find({}).exec(function(err, result) {
     res.send(result);
   });
@@ -23,9 +24,7 @@ exports.getusers = function(req, res) {
 exports.createplant = function(req, res){
  
   console.log(req.body);
-  var plant = new Plant({ 
-    details: req.body
-  });
+  var plant = new Plant(req.body);
 
   plant.save(function(err){
     if(err){
