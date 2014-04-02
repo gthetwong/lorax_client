@@ -1,11 +1,13 @@
 var Plant = Backbone.Model.extend({
   idAttribute: "_id",
-  //where is this saving to? can we have it post to the create plant w/ data?
-  url: "/api/plant/"
+  //this route links to a get request for a single plant. 
+  //can we have it post to the create plant w/ data?
+  url: "/api/plant/:id"
 });
 
 var PlantCollection = Backbone.Collection.extend({
-  model: Plant
+  model: Plant,
+  url:"api/plants"
 });
 
 var CurrentUser = Backbone.Model.extend({
@@ -128,11 +130,14 @@ var NewPlantView = Backbone.View.extend({
       owner_id: owner_id,
       plant_type: type
     };
+    //this is where the backbone model is created
     var plant = new Plant(data);
-    console.log(this.model.attributes);
-    plant.save(data);
+    
+    
+    //find model with same id as currentuser _id 
+    //and then save the data to that model?
     this.model.attributes.plant = plant;
-    this.model.save();
+    this.model.save(plant, {patch:true});
        
     //at some point here, we need to also push the data into the current user
     //maybe push the data object into current_user.attributes.plants 
@@ -141,7 +146,7 @@ var NewPlantView = Backbone.View.extend({
     $.post("register/"+owner_id+"/"+serial+"/"+redline).done(function(){
       console.log("success!");
      });
-    window.location.href('/profile');
+    // window.location.href('/profile');
    
   }
 });
@@ -186,6 +191,7 @@ var AppRouter = Backbone.Router.extend({
     var current_user = new CurrentUser();
     var view = new ProfileView({model: current_user});
     $("body").html(view.render().el);
+
     console.log(current_user);
            //if current user has no plants
     if (_.isEmpty(current_user.attributes.plants)){
