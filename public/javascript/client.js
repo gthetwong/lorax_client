@@ -1,3 +1,5 @@
+
+
 var Plant = Backbone.Model.extend({
   idAttribute: "_id",
   //return url for when we save a model
@@ -17,6 +19,8 @@ var CurrentUser = Backbone.Model.extend({
     this.fetch();
   }
 });
+
+
 
 var SignupView = Backbone.View.extend({
   render: function(){
@@ -74,6 +78,9 @@ var ProfileView = Backbone.View.extend({
 
 var PlantView = Backbone.View.extend({
   className: "plant",
+  events: {
+    "click .plant" : "detail"
+  },
 
   render: function(){
     var that = this;
@@ -88,6 +95,11 @@ var PlantView = Backbone.View.extend({
       });
     }
     return this;
+  },
+  detail: function(){
+    var that = this;
+    var detailView = new PlantDetailView({model: that.model});
+    $('.plants').html(detailView.render().el);
   }
 });
 
@@ -141,8 +153,6 @@ var NewPlantView = Backbone.View.extend({
       console.log("success!");
      });
 
-    window.location.hash = "/profile";
-
   }
 });
 
@@ -161,6 +171,26 @@ var PlantCollectionView = Backbone.View.extend({
     return this;
   }
 });
+
+
+var PlantDetailView = Backbone.View.extend({
+  className:"chart",
+  render: function(){
+    var that = this;
+    if(this.template){
+      var html = this.template(this.model.attributes);
+      this.$el.html(html);
+    } else {
+      $.get("/api/plant_detail_template").done(function(template){
+        var Template = Handlebars.compile(template);
+        var html = Template(that.model.attributes);
+        that.$el.html(html);
+      });
+    }
+    return this;
+  }
+});
+
 
 var AppRouter = Backbone.Router.extend({
   routes: {
@@ -193,7 +223,7 @@ var AppRouter = Backbone.Router.extend({
       console.log(garden);
       if (garden.length < 8){
         var newPlantView = new NewPlantView({model: current_user});
-        $("body").append(newPlantView.render().el);
+        $(".plants").append(newPlantView.render().el);
       }
     }
   });

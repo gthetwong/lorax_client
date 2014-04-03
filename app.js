@@ -52,6 +52,7 @@ require('./config/passport')(passport);
 
 app.get("/api/new_plant_template", view_routes.new_plant_template);
 app.get('/api/plant_template', view_routes.plant_template);
+app.get('/api/plant_detail_template', view_routes.plant_detail_template);
 app.get('/api/users', api_routes.getusers);
 app.get('/api/plants',api_routes.getplants);
 app.get('/api/plant', api_routes.getplant);
