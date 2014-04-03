@@ -1,14 +1,17 @@
 var Plant = Backbone.Model.extend({
   idAttribute: "_id",
-  //where is this saving to? can we have it post to the create plant w/ data?
-  url: "/api/plant/"
+  //return url for when we save a model
+  url:'/api/plants'
 });
 
 var PlantCollection = Backbone.Collection.extend({
-  model: Plant
+  model: Plant,
+  //grabs all plants for current user
+  url:"api/plants"
 });
 
 var CurrentUser = Backbone.Model.extend({
+  //grabs current user
   url: "/current",
   initialize: function(){
     this.fetch();
@@ -60,8 +63,7 @@ var ProfileView = Backbone.View.extend({
       this.$el.html(html);
     } else {
       $.get("/profile_template").done(function(template){
-        that.template = Handlebars.compile(template);
-        console.log(that.model.attributes);
+        that.template = Handlebars.compile(template); 
         var html = that.template(that.model.attributes);
         that.$el.html(html);
      });
@@ -121,6 +123,7 @@ var NewPlantView = Backbone.View.extend({
     console.log(serial);
     console.log(redline);
     console.log(owner_id);
+    //creating an object to hold all the values so we can easily create a new plant
     var data = {
       pi_serial_id: serial,
       redline: redline,
@@ -129,39 +132,37 @@ var NewPlantView = Backbone.View.extend({
       plant_type: type
     };
     var plant = new Plant(data);
-    console.log(this.model.attributes);
-    plant.save(data);
-    this.model.attributes.plant = plant;
-    this.model.save();
-       
-    //at some point here, we need to also push the data into the current user
-    //maybe push the data object into current_user.attributes.plants 
-   
+    plant.isNew();
+    plant.save();
+
    //this post sends data to a local express route which then posts to the service layer
     $.post("register/"+owner_id+"/"+serial+"/"+redline).done(function(){
       console.log("success!");
      });
-    window.location.href('/profile');
-   
+
+  
+
+    window.location.hash = "/profile";
   }
 });
 
-// var PlantCollectionView = Backbone.View.extend({
+var PlantCollectionView = Backbone.View.extend({
 
-//   intialize: function(){
-//     this.listenTo(this.collection, "reset", this.render);
-//   },
-//   tagName: "ul",
-//   className: "lorax",
-//   render: function(){
-//     this.$el.html("");
-//     this.collection.each(function(lorax){
-//       var loraxView = new LoraxView({ model: lorax });
-//       this.$el.append(loraxView.render().el);
-//     }, this);
-//     return this;
-//   }
-// });
+  intialize: function(){
+    this.listenTo(this.collection, "reset", this.render);
+  },
+  className: "plants",
+  render: function(){
+    this.$el.html("");
+    this.collection.each(function(plant){
+      var plantView = new PlantView({ model: plant });
+      this.$el.append(plantView.render().el);
+    }, this);
+    return this;
+  }
+});
+
+
 
 var AppRouter = Backbone.Router.extend({
   routes: {
@@ -186,24 +187,18 @@ var AppRouter = Backbone.Router.extend({
     var current_user = new CurrentUser();
     var view = new ProfileView({model: current_user});
     $("body").html(view.render().el);
-    console.log(current_user);
-           //if current user has no plants
-    if (_.isEmpty(current_user.attributes.plants)){
-      //model being passed in is current user so we can associate the plant we create with them
-      var new_plant = new NewPlantView({model: current_user});
-      console.log("no plants yet");
-      //replace plant box with form to create a plant
-      $("body").append(new_plant.render().el);
-      //we need to figure out how to associate the post method in NewPlantView with the user, or push it into their model when it gets created
 
-  } else { //if current user has plants
-      //"plant" is the current user's plant object
-
-      var plant = new PlantView({model: current_user.attributes.plant});
-      console.log("has a plant");
-      //"plant" gets rendered into the view
-      $("body").append(plant.render().el);
+    var garden = new PlantCollection();
+    garden.fetch({success:function(){
+      var gardenView = new PlantCollectionView({ collection: garden });
+      $("body").append(gardenView.render().el);
+      console.log(garden);
+      if (garden.length < 8){
+        var newPlantView = new NewPlantView({model: current_user});
+        $("body").append(newPlantView.render().el);
       }
+    }
+  });
   }
 });
 
