@@ -73,6 +73,8 @@ var ProfileView = Backbone.View.extend({
 });
 
 var PlantView = Backbone.View.extend({
+  className: "plant",
+
   render: function(){
     var that = this;
     if(this.template){
@@ -81,7 +83,7 @@ var PlantView = Backbone.View.extend({
     } else {
       $.get("/api/plant_template").done(function(template){
         var Template = Handlebars.compile(template);
-        var html = Template(this.model.attributes);
+        var html = Template(that.model.attributes);
         that.$el.html(html);
       });
     }
@@ -93,7 +95,6 @@ var NewPlantView = Backbone.View.extend({
   events: {
     "submit ": "create"
   },
-
   render: function(){
     var that = this;
     if(this.template){
@@ -131,18 +132,17 @@ var NewPlantView = Backbone.View.extend({
       owner_id: owner_id,
       plant_type: type
     };
+    //this is where the backbone model is created
     var plant = new Plant(data);
     plant.isNew();
     plant.save();
-
    //this post sends data to a local express route which then posts to the service layer
     $.post("register/"+owner_id+"/"+serial+"/"+redline).done(function(){
       console.log("success!");
      });
 
-  
-
     window.location.hash = "/profile";
+
   }
 });
 
@@ -161,8 +161,6 @@ var PlantCollectionView = Backbone.View.extend({
     return this;
   }
 });
-
-
 
 var AppRouter = Backbone.Router.extend({
   routes: {

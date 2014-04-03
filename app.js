@@ -55,12 +55,13 @@ app.get('/api/plant_template', view_routes.plant_template);
 app.get('/api/users', api_routes.getusers);
 app.get('/api/plants',api_routes.getplants);
 app.get('/api/plant', api_routes.getplant);
-app.post('/api/plant/', api_routes.createplant);
+app.post('/api/plants', api_routes.createplant);
 
 
 app.post('/register/:owner/:serial/:redline', function(req, res){
   var data = req.params;
-  request.post("http://murmuring-crag-3099.herokuapp.com/register/"+data.owner+"/"+data.serial+"/"+data.redline);
+  res.send("200");
+  // request.post("http://murmuring-crag-3099.herokuapp.com/register/"+data.owner+"/"+data.serial+"/"+data.redline);
 });
 
 
