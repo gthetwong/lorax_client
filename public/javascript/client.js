@@ -1,16 +1,16 @@
-var Plant = Backbone.Model.extend({
+loraxApp.Models.Plant = Backbone.Model.extend({
   idAttribute: "_id",
   //return url for when we save a model
   url:'/api/plants'
 });
 
-var PlantCollection = Backbone.Collection.extend({
-  model: Plant,
+loraxApp.Collections.PlantCollection = Backbone.Collection.extend({
+  model: loraxApp.Models.Plant,
   //grabs all plants for current user
   url:"/api/plants"
 });
 
-var CurrentUser = Backbone.Model.extend({
+loraxApp.Models.CurrentUser = Backbone.Model.extend({
   //grabs current user
   url: "/current",
   initialize: function(){
@@ -18,7 +18,7 @@ var CurrentUser = Backbone.Model.extend({
   }
 });
 
-var SignupView = Backbone.View.extend({
+loraxApp.Views.SignupView = Backbone.View.extend({
   render: function(){
     var that = this;
     if(this.template){
@@ -35,7 +35,7 @@ var SignupView = Backbone.View.extend({
   }
 });
 
-var LoginView = Backbone.View.extend({
+loraxApp.Views.LoginView = Backbone.View.extend({
   render: function(){
     var that = this;
     if(this.template){
@@ -52,7 +52,7 @@ var LoginView = Backbone.View.extend({
   }
 });
 
-var ProfileView = Backbone.View.extend({
+loraxApp.Views.ProfileView = Backbone.View.extend({
   initialize: function(){
     this.listenTo(this.model, "change", this.render);
   },
@@ -72,7 +72,7 @@ var ProfileView = Backbone.View.extend({
   }
 });
 
-var PlantDetailView = Backbone.View.extend({
+loraxApp.Views.PlantDetailView = Backbone.View.extend({
   className:"chart",
   render: function(){
     var that = this;
@@ -125,7 +125,7 @@ var PlantDetailView = Backbone.View.extend({
   }
 });
 
-var PlantView = Backbone.View.extend({
+loraxApp.Views.PlantView = Backbone.View.extend({
   className: "plant",
   events: {
     "click .plant" : "detail"
@@ -145,13 +145,14 @@ var PlantView = Backbone.View.extend({
     return this;
   },
   detail: function(){
-    var that = this;
-    var detailView = new PlantDetailView({ model: that.model });
+    var path = "profile/"+this.model.attributes._id;
+    loraxApp.router.navigate(path, {trigger:true});
+    var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
     $('.plants').html(detailView.render().el);
   }
 });
 
-var PlantCollectionView = Backbone.View.extend({
+loraxApp.Views.PlantCollectionView = Backbone.View.extend({
   intialize: function(){
     this.listenTo(this.collection, "reset", this.render);
   },
@@ -159,14 +160,14 @@ var PlantCollectionView = Backbone.View.extend({
   render: function(){
     this.$el.html("");
     this.collection.each(function(plant){
-      var plantView = new PlantView({ model: plant });
+      var plantView = new loraxApp.Views.PlantView({ model: plant });
       this.$el.append(plantView.render().el);
     }, this);
     return this;
   }
 });
 
-var NewPlantView = Backbone.View.extend({
+loraxApp.Views.NewPlantView = Backbone.View.extend({
   events: {
     "submit ": "create"
   },
@@ -212,7 +213,7 @@ var NewPlantView = Backbone.View.extend({
     };
     // console.log(data);
     //this is where the backbone model is created
-    var plant = new Plant(data);
+    var plant = new loraxApp.Models.Plant(data);
     plant.isNew();
     plant.save();
    //this post sends data to a local express route which then posts to the service layer
@@ -223,41 +224,48 @@ var NewPlantView = Backbone.View.extend({
   }
 });
 
-var AppRouter = Backbone.Router.extend({
+loraxApp.Routers.Main = Backbone.Router.extend({
   routes: {
     "": "index",
     "signup": "signup",
     "login" : "login",
-    "profile": "profile"
+    "profile": "profile",
+    "profile/:id":"detail"
   },
   index: function(){
     
   },
   signup: function () {
-    var view = new SignupView();
+    var view = new loraxApp.Views.SignupView();
     $("body").html(view.render().el);
   },
   login: function() {
-    var view = new LoginView();
+    var view = new loraxApp.Views.LoginView();
     $("body").html(view.render().el);
   },
   profile: function() {
-    var current_user = new CurrentUser();
-    var view = new ProfileView({model: current_user});
+    var current_user = new loraxApp.Models.CurrentUser();
+    var view = new loraxApp.Views.ProfileView({model: current_user});
     $("body").html(view.render().el);
 
-    var garden = new PlantCollection();
+    var garden = new loraxApp.Collections.PlantCollection();
     garden.fetch({
       success: function(){
-      var gardenView = new PlantCollectionView({ collection: garden });
+      var gardenView = new loraxApp.Views.PlantCollectionView({ collection: garden });
       $("body").append(gardenView.render().el);
       console.log(garden);
       if (garden.length < 8){
-        var newPlantView = new NewPlantView({ model: current_user });
+        var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
         $(".plants").append(newPlantView.render().el);
       }
     }
   });
+  },
+  detail: function(id){
+    console.log("detail view");
+    console.log(id);
+    // var id = params.id;
+
   }
 });
 
