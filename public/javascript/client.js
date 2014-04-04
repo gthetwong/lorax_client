@@ -106,20 +106,32 @@ var PlantDetailView = Backbone.View.extend({
           console.log(readings);
           console.log(that.model.attributes.redline); 
         var redline = that.model.attributes.redline;
-        
+        var redLength = readings.length;
+        redlineArray = function(val, length) {
+          var arr = [], i = length;
+          while (i--) {
+            arr[i] = val;
+          }
+          return arr;
+        };
+        var redArray = redlineArray(redline, redLength);
+        console.log(redArray);
         var ctx = $("#myChart").get(0).getContext("2d");
         var data = {
-          labels : ["January","February","March","April","May","June","July"],
+          // placeholder for datetime value
+          labels : ["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],
           datasets: [
-          { fillColor : "rgba(220,220,220,0.5)",
-            strokeColor : "rgba(220,220,220,1)",
-            pointColor : "rgba(220,220,220,1)",
+          { fillColor : "rgba(151,187,205,0.5)",
+            strokeColor : "rgba(151,187,205,1)",
+            pointColor : "rgba(151,187,205,1)",
             pointStrokeColor : "#fff",
-            // data: readings
-            data : [65,59,90,81,56,55,40]
+            data: readings
           },
-          {
-            data: that.model.attributes.redline
+          { fillColor : "rgba(220,220,220,0)",
+            strokeColor : "rgba(255,0,0,1)",
+            pointColor : "rgba(255,0,0,1)",
+            pointStrokeColor : "#fff",
+            data: redArray
           }
           ]
         };
