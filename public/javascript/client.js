@@ -80,7 +80,7 @@ var PlantDetailView = Backbone.View.extend({
       var html = this.template(this.model.attributes);
       this.$el.html(html);
     } else {
-      // $.get("http//http://murmuring-crag-3099.herokuapp.com/plantdata/model.pi_serial_id/number")
+      // $.get("http//http://murmuring-crag-3099.herokuapp.com/plantdata/"+model.pi_serial_id+"/"+collection index number)
       // .done(function(){
       //   // render chart here
       // });
@@ -160,17 +160,20 @@ var NewPlantView = Backbone.View.extend({
     var name = event.target[0].value;
     var type = event.target[1].value;
     var serial = event.target[2].value;
-    var redline = event.target[3].value;
+    var sensor = event.target[3].value;
+    var redline = event.target[4].value;
     var owner_id = this.model.attributes._id;
     //logging the values to check 
     console.log(name);
     console.log(type);
     console.log(serial);
+    console.log(sensor);
     console.log(redline);
     console.log(owner_id);
     //creating an object to hold all the values so we can easily create a new plant
     var data = {
       pi_serial_id: serial,
+      sensor_id: sensor,
       redline: redline,
       nickname: name,
       owner_id: owner_id,
@@ -181,7 +184,7 @@ var NewPlantView = Backbone.View.extend({
     plant.isNew();
     plant.save();
    //this post sends data to a local express route which then posts to the service layer
-    $.post("register/"+owner_id+"/"+serial+"/"+redline).done(function(){
+    $.post("register/"+owner_id+"/"+serial+"/"+sensor+"/"+redline).done(function(){
       console.log("success!");
      });
 
