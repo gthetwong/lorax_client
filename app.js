@@ -59,7 +59,7 @@ app.get('/api/plant', api_routes.getplant);
 app.post('/api/plants', api_routes.createplant);
 
 
-app.post('/register/:owner/:serial/:redline', function(req, res){
+app.post('/register/:owner/:serial/:sensor_id/:redline', function(req, res){
   var data = req.params;
   res.send("200");
   // request.post("http://murmuring-crag-3099.herokuapp.com/register/"+data.owner+"/"+data.serial+"/"+data.redline);
