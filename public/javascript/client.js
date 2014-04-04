@@ -81,19 +81,51 @@ var PlantDetailView = Backbone.View.extend({
       this.$el.html(html);
     } else {
       console.log(that.model);
-      $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
-        var parsedData = JSON.parse(res);
-        console.log(parsedData.rows);
-        var readings=[];
-        _.each(parsedData.rows, function(result){
-          readings.push(result.reading);
-        });
-        console.log(readings);
-      });
+      // $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+      //   var parsedData = JSON.parse(res);
+      //   console.log(parsedData.rows);
+      //   var readings=[];
+      //   _.each(parsedData.rows, function(result){
+      //     readings.push(result.reading);
+      //   });
+      //   console.log(readings);
+      //   console.log(that.model.attributes.redline); 
+      // });
       $.get("/api/plant_detail_template").done(function(template){
         var Template = Handlebars.compile(template);
         var html = Template(that.model.attributes);
         that.$el.html(html);
+        
+        $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+          var parsedData = JSON.parse(res);
+          console.log(parsedData.rows);
+          var readings=[];
+          _.each(parsedData.rows, function(result){
+            readings.push(result.reading);
+          });
+          console.log(readings);
+          console.log(that.model.attributes.redline); 
+        var redline = that.model.attributes.redline;
+        
+        var ctx = $("#myChart").get(0).getContext("2d");
+        var data = {
+          labels : ["January","February","March","April","May","June","July"],
+          datasets: [
+          { fillColor : "rgba(220,220,220,0.5)",
+            strokeColor : "rgba(220,220,220,1)",
+            pointColor : "rgba(220,220,220,1)",
+            pointStrokeColor : "#fff",
+            // data: readings
+            data : [65,59,90,81,56,55,40]
+          },
+          {
+            data: that.model.attributes.redline
+          }
+          ]
+        };
+        new Chart(ctx).Line(data);
+
+        });
       });
     }
     return this;
