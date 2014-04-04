@@ -80,10 +80,16 @@ var PlantDetailView = Backbone.View.extend({
       var html = this.template(this.model.attributes);
       this.$el.html(html);
     } else {
-      // $.get("http//http://murmuring-crag-3099.herokuapp.com/plantdata/"+model.pi_serial_id+"/"+collection index number)
-      // .done(function(){
-      //   // render chart here
-      // });
+      console.log(that.model);
+      $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+        var parsedData = JSON.parse(res);
+        console.log(parsedData.rows);
+        var readings=[];
+        _.each(parsedData.rows, function(result){
+          readings.push(result.reading);
+        });
+        console.log(readings);
+      });
       $.get("/api/plant_detail_template").done(function(template){
         var Template = Handlebars.compile(template);
         var html = Template(that.model.attributes);
@@ -179,6 +185,7 @@ var NewPlantView = Backbone.View.extend({
       owner_id: owner_id,
       plant_type: type
     };
+    // console.log(data);
     //this is where the backbone model is created
     var plant = new Plant(data);
     plant.isNew();

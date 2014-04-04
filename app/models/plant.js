@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var plantSchema = mongoose.Schema({
 
         pi_serial_id : String,
-        sensort_id   : Number,
+        sensor_id    : Number,
         redline      : Number,
         nickname     : String,
         owner_id     : String,
