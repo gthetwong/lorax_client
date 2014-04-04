@@ -98,23 +98,13 @@ var PlantDetailView = Backbone.View.extend({
         
         $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
           var parsedData = JSON.parse(res);
-          console.log(parsedData.rows);
           var readings=[];
+          var redArray=[];
           _.each(parsedData.rows, function(result){
             readings.push(result.reading);
+            redArray.push(that.model.attributes.redline);
           });
-          console.log(readings);
-          console.log(that.model.attributes.redline); 
-        var redline = that.model.attributes.redline;
-        var redLength = readings.length;
-        redlineArray = function(val, length) {
-          var arr = [], i = length;
-          while (i--) {
-            arr[i] = val;
-          }
-          return arr;
-        };
-        var redArray = redlineArray(redline, redLength);
+        console.log(readings);
         console.log(redArray);
         var ctx = $("#myChart").get(0).getContext("2d");
         var data = {
