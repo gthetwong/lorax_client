@@ -81,35 +81,27 @@ var PlantDetailView = Backbone.View.extend({
       this.$el.html(html);
     } else {
       console.log(that.model);
-      // $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
-      //   var parsedData = JSON.parse(res);
-      //   console.log(parsedData.rows);
-      //   var readings=[];
-      //   _.each(parsedData.rows, function(result){
-      //     readings.push(result.reading);
-      //   });
-      //   console.log(readings);
-      //   console.log(that.model.attributes.redline); 
-      // });
       $.get("/api/plant_detail_template").done(function(template){
         var Template = Handlebars.compile(template);
         var html = Template(that.model.attributes);
         that.$el.html(html);
-        
+        var redline = that.model.attributes.redline;
         $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
           var parsedData = JSON.parse(res);
           var readings=[];
-          var redArray=[];
+          var redlineVal=[];
+          var timestamp=[];
           _.each(parsedData.rows, function(result){
-            readings.push(result.reading);
-            redArray.push(that.model.attributes.redline);
+            readings.push(result.reading); //creating an array of soil moisture reading
+            timestamp.push(result.recordtime); //creating an array of timestamp at each reading
+            redlineVal.push(redline);      //creating an array of redline constant
           });
         console.log(readings);
-        console.log(redArray);
-        var ctx = $("#myChart").get(0).getContext("2d");
+        console.log(redlineVal);
+        console.log(timestamp);
+        var ctx = $("#soilMoistChart").get(0).getContext("2d");
         var data = {
-          // placeholder for datetime value
-          labels : ["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],
+          labels : timestamp,
           datasets: [
           { fillColor : "rgba(151,187,205,0.5)",
             strokeColor : "rgba(151,187,205,1)",
@@ -121,12 +113,11 @@ var PlantDetailView = Backbone.View.extend({
             strokeColor : "rgba(255,0,0,1)",
             pointColor : "rgba(255,0,0,1)",
             pointStrokeColor : "#fff",
-            data: redArray
+            data: redlineVal
           }
           ]
         };
         new Chart(ctx).Line(data);
-
         });
       });
     }
