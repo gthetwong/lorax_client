@@ -1,5 +1,3 @@
-
-
 var Plant = Backbone.Model.extend({
   idAttribute: "_id",
   //return url for when we save a model
@@ -9,7 +7,7 @@ var Plant = Backbone.Model.extend({
 var PlantCollection = Backbone.Collection.extend({
   model: Plant,
   //grabs all plants for current user
-  url:"api/plants"
+  url:"/api/plants"
 });
 
 var CurrentUser = Backbone.Model.extend({
@@ -19,8 +17,6 @@ var CurrentUser = Backbone.Model.extend({
     this.fetch();
   }
 });
-
-
 
 var SignupView = Backbone.View.extend({
   render: function(){
@@ -76,12 +72,71 @@ var ProfileView = Backbone.View.extend({
   }
 });
 
+var PlantDetailView = Backbone.View.extend({
+  className:"chart",
+  render: function(){
+    var that = this;
+    if(this.template){
+      var html = this.template(this.model.attributes);
+      this.$el.html(html);
+    } else {
+      console.log(that.model);
+      // $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+      //   var parsedData = JSON.parse(res);
+      //   console.log(parsedData.rows);
+      //   var readings=[];
+      //   _.each(parsedData.rows, function(result){
+      //     readings.push(result.reading);
+      //   });
+      //   console.log(readings);
+      //   console.log(that.model.attributes.redline); 
+      // });
+      $.get("/api/plant_detail_template").done(function(template){
+        var Template = Handlebars.compile(template);
+        var html = Template(that.model.attributes);
+        that.$el.html(html);
+        
+        $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+          var parsedData = JSON.parse(res);
+          console.log(parsedData.rows);
+          var readings=[];
+          _.each(parsedData.rows, function(result){
+            readings.push(result.reading);
+          });
+          console.log(readings);
+          console.log(that.model.attributes.redline); 
+        var redline = that.model.attributes.redline;
+        
+        var ctx = $("#myChart").get(0).getContext("2d");
+        var data = {
+          labels : ["January","February","March","April","May","June","July"],
+          datasets: [
+          { fillColor : "rgba(220,220,220,0.5)",
+            strokeColor : "rgba(220,220,220,1)",
+            pointColor : "rgba(220,220,220,1)",
+            pointStrokeColor : "#fff",
+            // data: readings
+            data : [65,59,90,81,56,55,40]
+          },
+          {
+            data: that.model.attributes.redline
+          }
+          ]
+        };
+        new Chart(ctx).Line(data);
+
+        });
+      });
+    }
+    return this;
+  }
+});
+
 var PlantView = Backbone.View.extend({
   className: "plant",
   events: {
     "click .plant" : "detail"
   },
-
   render: function(){
     var that = this;
     if(this.template){
@@ -98,8 +153,23 @@ var PlantView = Backbone.View.extend({
   },
   detail: function(){
     var that = this;
-    var detailView = new PlantDetailView({model: that.model});
+    var detailView = new PlantDetailView({ model: that.model });
     $('.plants').html(detailView.render().el);
+  }
+});
+
+var PlantCollectionView = Backbone.View.extend({
+  intialize: function(){
+    this.listenTo(this.collection, "reset", this.render);
+  },
+  className: "plants",
+  render: function(){
+    this.$el.html("");
+    this.collection.each(function(plant){
+      var plantView = new PlantView({ model: plant });
+      this.$el.append(plantView.render().el);
+    }, this);
+    return this;
   }
 });
 
@@ -128,69 +198,37 @@ var NewPlantView = Backbone.View.extend({
     var name = event.target[0].value;
     var type = event.target[1].value;
     var serial = event.target[2].value;
-    var redline = event.target[3].value;
+    var sensor = event.target[3].value;
+    var redline = event.target[4].value;
     var owner_id = this.model.attributes._id;
     //logging the values to check 
     console.log(name);
     console.log(type);
     console.log(serial);
+    console.log(sensor);
     console.log(redline);
     console.log(owner_id);
     //creating an object to hold all the values so we can easily create a new plant
     var data = {
       pi_serial_id: serial,
+      sensor_id: sensor,
       redline: redline,
       nickname: name,
       owner_id: owner_id,
       plant_type: type
     };
+    // console.log(data);
     //this is where the backbone model is created
     var plant = new Plant(data);
     plant.isNew();
     plant.save();
    //this post sends data to a local express route which then posts to the service layer
-    $.post("register/"+owner_id+"/"+serial+"/"+redline).done(function(){
+    $.post("register/"+owner_id+"/"+serial+"/"+sensor+"/"+redline).done(function(){
       console.log("success!");
      });
 
   }
 });
-
-var PlantCollectionView = Backbone.View.extend({
-
-  intialize: function(){
-    this.listenTo(this.collection, "reset", this.render);
-  },
-  className: "plants",
-  render: function(){
-    this.$el.html("");
-    this.collection.each(function(plant){
-      var plantView = new PlantView({ model: plant });
-      this.$el.append(plantView.render().el);
-    }, this);
-    return this;
-  }
-});
-
-
-var PlantDetailView = Backbone.View.extend({
-  className:"chart",
-  render: function(){
-    var that = this;
-    if(this.template){
-      var html = this.template(this.model.attributes);
-      this.$el.html(html);
-    } else {
-      $.get("/api/plant_detail_template").done(function(template){
-        var Template = Handlebars.compile(template);
-        var html = Template(that.model.attributes);
-        that.$el.html(html);
-      });
-    }
-    return this;
-  }
-});
-
 
 var AppRouter = Backbone.Router.extend({
   routes: {
@@ -198,7 +236,6 @@ var AppRouter = Backbone.Router.extend({
     "signup": "signup",
     "login" : "login",
     "profile": "profile"
-
   },
   index: function(){
     
@@ -217,12 +254,13 @@ var AppRouter = Backbone.Router.extend({
     $("body").html(view.render().el);
 
     var garden = new PlantCollection();
-    garden.fetch({success:function(){
+    garden.fetch({
+      success: function(){
       var gardenView = new PlantCollectionView({ collection: garden });
       $("body").append(gardenView.render().el);
       console.log(garden);
       if (garden.length < 8){
-        var newPlantView = new NewPlantView({model: current_user});
+        var newPlantView = new NewPlantView({ model: current_user });
         $(".plants").append(newPlantView.render().el);
       }
     }

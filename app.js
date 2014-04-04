@@ -59,10 +59,21 @@ app.get('/api/plant', api_routes.getplant);
 app.post('/api/plants', api_routes.createplant);
 
 
-app.post('/register/:owner/:serial/:sensor_id/:redline', function(req, res){
+
+app.post('/register/:owner/:serial/:sensor/:redline', function(req, res){
   var data = req.params;
   res.send("200");
-  // request.post("http://murmuring-crag-3099.herokuapp.com/register/"+data.owner+"/"+data.serial+"/"+data.redline);
+  console.log(data);
+  request.post("http://murmuring-crag-3099.herokuapp.com/register/"+data.owner+"/"+data.serial+"/"+data.sensor+"/"+data.redline);
+});
+
+app.get('/plantdata/:serial/:sensor', function(req, res){
+  var data = req.params;
+  console.log(data);
+  request.get("http://murmuring-crag-3099.herokuapp.com/plantdata/"+data.serial+"/"+data.sensor, function(err, resp, body){
+    // var parseBody = JSON.parse(body);
+    res.send(body);
+  });
 });
 
 
