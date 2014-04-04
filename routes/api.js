@@ -10,7 +10,7 @@ exports.getplants = function(req, res) {
 
 exports.getplant = function(req, res) {
   console.log(req.params.id);
- var query= Plant.find({"_id" : req.params.id}).exec(function(err, result) {
+ var query = Plant.find({"_id" : req.params.id}).exec(function(err, result) {
     res.send(result);
   });
 };

@@ -1,5 +1,3 @@
-
-
 var Plant = Backbone.Model.extend({
   idAttribute: "_id",
   //return url for when we save a model
@@ -9,7 +7,7 @@ var Plant = Backbone.Model.extend({
 var PlantCollection = Backbone.Collection.extend({
   model: Plant,
   //grabs all plants for current user
-  url:"api/plants"
+  url:"/api/plants"
 });
 
 var CurrentUser = Backbone.Model.extend({
@@ -19,8 +17,6 @@ var CurrentUser = Backbone.Model.extend({
     this.fetch();
   }
 });
-
-
 
 var SignupView = Backbone.View.extend({
   render: function(){
@@ -76,12 +72,33 @@ var ProfileView = Backbone.View.extend({
   }
 });
 
+var PlantDetailView = Backbone.View.extend({
+  className:"chart",
+  render: function(){
+    var that = this;
+    if(this.template){
+      var html = this.template(this.model.attributes);
+      this.$el.html(html);
+    } else {
+      // $.get("http//http://murmuring-crag-3099.herokuapp.com/plantdata/model.pi_serial_id/number")
+      // .done(function(){
+      //   // render chart here
+      // });
+      $.get("/api/plant_detail_template").done(function(template){
+        var Template = Handlebars.compile(template);
+        var html = Template(that.model.attributes);
+        that.$el.html(html);
+      });
+    }
+    return this;
+  }
+});
+
 var PlantView = Backbone.View.extend({
   className: "plant",
   events: {
     "click .plant" : "detail"
   },
-
   render: function(){
     var that = this;
     if(this.template){
@@ -98,8 +115,23 @@ var PlantView = Backbone.View.extend({
   },
   detail: function(){
     var that = this;
-    var detailView = new PlantDetailView({model: that.model});
+    var detailView = new PlantDetailView({ model: that.model });
     $('.plants').html(detailView.render().el);
+  }
+});
+
+var PlantCollectionView = Backbone.View.extend({
+  intialize: function(){
+    this.listenTo(this.collection, "reset", this.render);
+  },
+  className: "plants",
+  render: function(){
+    this.$el.html("");
+    this.collection.each(function(plant){
+      var plantView = new PlantView({ model: plant });
+      this.$el.append(plantView.render().el);
+    }, this);
+    return this;
   }
 });
 
@@ -156,49 +188,12 @@ var NewPlantView = Backbone.View.extend({
   }
 });
 
-var PlantCollectionView = Backbone.View.extend({
-
-  intialize: function(){
-    this.listenTo(this.collection, "reset", this.render);
-  },
-  className: "plants",
-  render: function(){
-    this.$el.html("");
-    this.collection.each(function(plant){
-      var plantView = new PlantView({ model: plant });
-      this.$el.append(plantView.render().el);
-    }, this);
-    return this;
-  }
-});
-
-
-var PlantDetailView = Backbone.View.extend({
-  className:"chart",
-  render: function(){
-    var that = this;
-    if(this.template){
-      var html = this.template(this.model.attributes);
-      this.$el.html(html);
-    } else {
-      $.get("/api/plant_detail_template").done(function(template){
-        var Template = Handlebars.compile(template);
-        var html = Template(that.model.attributes);
-        that.$el.html(html);
-      });
-    }
-    return this;
-  }
-});
-
-
 var AppRouter = Backbone.Router.extend({
   routes: {
     "": "index",
     "signup": "signup",
     "login" : "login",
     "profile": "profile"
-
   },
   index: function(){
     
@@ -217,12 +212,13 @@ var AppRouter = Backbone.Router.extend({
     $("body").html(view.render().el);
 
     var garden = new PlantCollection();
-    garden.fetch({success:function(){
+    garden.fetch({
+      success: function(){
       var gardenView = new PlantCollectionView({ collection: garden });
       $("body").append(gardenView.render().el);
       console.log(garden);
       if (garden.length < 8){
-        var newPlantView = new NewPlantView({model: current_user});
+        var newPlantView = new NewPlantView({ model: current_user });
         $(".plants").append(newPlantView.render().el);
       }
     }
