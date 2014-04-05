@@ -5,8 +5,6 @@ window.loraxApp = {
   Routers: {},
 
   start: function(){
-    // var loraxRouter = new loraxApp.Routers.Main();
-    // this.router = new this.Routers.Main();
     this.router = new this.Routers.Main();
     Backbone.history.start({ pushState: true });
   }
