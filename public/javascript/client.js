@@ -270,8 +270,10 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       success: function(){
       var gardenView = new loraxApp.Views.PlantCollectionView({ collection: garden });
       console.log("the garden",garden);
-      var a_model = garden.where({id: id});
+      var a_model = garden.where({ _id: id });
       console.log(a_model,"the model");
+      var detailView = new loraxApp.Views.PlantDetailView({ model: a_model });
+      $('.plants').html(detailView.render().el);
       }
     });
     
