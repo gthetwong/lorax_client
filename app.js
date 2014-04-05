@@ -67,7 +67,7 @@ app.post('/register/:owner/:serial/:sensor/:redline', function(req, res){
   request.post("http://murmuring-crag-3099.herokuapp.com/register/"+data.owner+"/"+data.serial+"/"+data.sensor+"/"+data.redline);
 });
 
-app.get('/plantdata/:serial/:sensor', function(req, res){
+app.get('/profile/plantdata/:serial/:sensor', function(req, res){
   var data = req.params;
   console.log(data);
   request.get("http://murmuring-crag-3099.herokuapp.com/plantdata/"+data.serial+"/"+data.sensor, function(err, resp, body){
