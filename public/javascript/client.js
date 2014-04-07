@@ -146,9 +146,9 @@ loraxApp.Views.PlantView = Backbone.View.extend({
   },
   detail: function(){
     var path = "profile/"+this.model.attributes._id;
-    loraxApp.router.navigate(path, {trigger:true});
     var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
     $('.plants').html(detailView.render().el);
+        loraxApp.router.navigate(path);
   }
 });
 
