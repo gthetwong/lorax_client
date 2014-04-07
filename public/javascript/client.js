@@ -84,7 +84,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
       $.get("/api/plant_detail_template").done(function(template){
         var Template = Handlebars.compile(template);
         var html = Template(that.model.attributes);
-        that.$el.html(html);
+        that.$el.html(html);//not on the page yet
         var redline = that.model.attributes.redline;
         $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
           var parsedData = JSON.parse(res);
@@ -99,7 +99,8 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
         console.log(readings);
         console.log(redlineVal);
         console.log(timestamp);
-        var ctx = $("#soilMoistChart").get(0).getContext("2d");
+        var chart_canvas = that.el.querySelector(".soilMoistChart");
+        var ctx = chart_canvas.getContext("2d");
         var data = {
           labels : timestamp,
           datasets: [
@@ -265,18 +266,22 @@ loraxApp.Routers.Main = Backbone.Router.extend({
   detail: function(id){
     console.log("detail view");
     console.log(id);
+    var current_user = new loraxApp.Models.CurrentUser();
+    var view = new loraxApp.Views.ProfileView({model: current_user});
+    $("body").html(view.render().el);
+
     var garden = new loraxApp.Collections.PlantCollection();
     garden.fetch({
       success: function(){
       var gardenView = new loraxApp.Views.PlantCollectionView({ collection: garden });
       console.log("the garden",garden);
-      var a_model = garden.where({ _id: id });
+      var a_model = garden.findWhere({ _id: id });
+
       console.log(a_model,"the model");
       var detailView = new loraxApp.Views.PlantDetailView({ model: a_model });
-      $('.plants').html(detailView.render().el);
+      $('body').append(detailView.render().el);
       }
     });
-    
     
     // var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
     // $('.plants').html(detailView.render().el);

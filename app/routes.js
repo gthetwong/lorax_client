@@ -37,6 +37,14 @@ module.exports = function(app, passport){
     }
   });
 
+  app.get("/profile/:id", function(req,res){
+    if(req.isAuthenticated()){
+      res.render('index.html');
+    } else {
+      res.render('login.html');
+    }
+  });
+
   app.get('/current', isLoggedIn, function(req,res){
     // console.log(req.user);
     var user = {_id: req.user._id};
