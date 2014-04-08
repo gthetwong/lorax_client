@@ -2,6 +2,7 @@ var configAuth = require('../config/auth');
 var access = require('../config/access');
 var twitter = require('node-twitter-api');
 var User = require('./models/user');
+var Plant = require('.models/plant');
 
 var auths = {
     consumerKey     : configAuth.twitterAuth.consumerKey,
