@@ -4,9 +4,10 @@
 module.exports = {
 
   'twitterAuth' : {
-    'consumerKey'     : 'wI7TKjyFXlEWUWwQaUGw',
-    'consumerSecret'  : 'lPgKLYstdXIyqT0wWVXsnhLH49QM5aDRKqQVOaXsMKw',
-    'callbackURL'     : 'http://127.0.0.1:5000/auth/twitter/callback'
-  }
+    //changed to be environment variables
+    'consumerKey'     : process.env.consumerKey,
+    'consumerSecret'  : process.env.consumerSecret,
+    'callbackURL'     : process.env.callbackURL
+  } 
 
 };
