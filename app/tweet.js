@@ -17,22 +17,44 @@ var access = {
 var tweet = new twitter(auths);
 
 
-// var user = User.findOne({ 'twitter.id' : profile.id }, function(err, user) {
-//   if (err)
-//       return done(err);
-//   if (user) {
-//       return done(null, user);
-//   }
-// });
-
 exports.sendTweet = function(req,res){
-  var user = User.findOne({ 'twitter.username': req.params.username }, function(err, user) {
-      tweet.statuses("update", {status: "Good luck with your presentation! @" +user.twitter.username+" #projectlorax"}, access.at, access.ats, function(er, d, r){
-    if(er){
-        console.log(er);
-      }
-    });
+  var data = req.params;
+  var owner = data.owner;
+  var pi = data.pi_id;
+  var sensor = data.sensor;
+
+  var username = User.findOne({ '_id' : owner }, function(err, user) {
+    if (err)
+      return done(err);
+    if (user) {
+      // return user.twitter.username;
+       var plantname = Plant.findOne({ $and: [{ 'pi_serial_id': pi_id }, { 'sensor_id': sensor }]}, function(err, plant){
+        if(err)
+          return done(err);
+        if(plant){
+          // return plant.nickname;
+          tweet.statuses("update", {status: "@"+user.twitter.username+" please water "+plant.nickname+"#projectlorax"}, 
+            access.at, access.ats, function(er, d, r){
+              if(er){
+                console.log(er);
+              }
+            });
+        }
+      });
+    }
   });
 
-// console.log(User);
 };
+
+ 
+
+//   var user = User.findOne({ 'twitter.username': req.params.username }, function(err, user) {
+//       tweet.statuses("update", {status: "Good luck with your presentation! @" +user.twitter.username+" #projectlorax"}, access.at, access.ats, function(er, d, r){
+//     if(er){
+//         console.log(er);
+//       }
+//     });
+//   });
+
+// // console.log(User);
+// };
