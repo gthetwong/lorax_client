@@ -76,9 +76,12 @@ app.get('/profile/plantdata/:serial/:sensor', function(req, res){
   });
 });
 
+// var tweet = require('./app/tweet.js');
+app.post('/notify/:owner/:pi_id/:sensor', function(req,res){
+  // var data = 
+});
 
-var tweet = require('./app/tweet.js');
-app.get('/tweet', tweet.sendTweet);
+// app.get('/tweet', tweet.sendTweet);
 
  var port = Number(process.env.PORT || 5000);
 
