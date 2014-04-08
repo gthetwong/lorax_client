@@ -29,7 +29,7 @@ exports.sendTweet = function(req,res){
       return done(err);
     if (user) {
       // return user.twitter.username;
-       var plantname = Plant.findOne({ $and: [{ 'pi_serial_id': pi_id }, { 'sensor_id': sensor }]}, function(err, plant){
+       var plantname = Plant.findOne({ $and: [{ 'pi_serial_id': pi }, { 'sensor_id': sensor }]}, function(err, plant){
         if(err)
           return done(err);
         if(plant){
