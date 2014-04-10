@@ -155,6 +155,7 @@ loraxApp.Views.PlantView = Backbone.View.extend({
   },
   addplant: function(){
     // render form here
+    console.log("you clicked the plus sign");
   }
 });
 
@@ -263,9 +264,11 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       console.log(garden);
       if (garden.length < 8){
         // plus sign should appear here. when the plus sign is clicked render the newPlantView
-        $(".plants").append("<div class=\"plus\"> + </div>");
-        var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
-        $(".plants").append(newPlantView.render().el);
+        $(".plants").append("<div class=\"plus\"> PLUS SIGN HERE </div>");
+        console.log("the plus div was appended");
+        // var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
+        // $(".plants").append(newPlantView.render().el);
+
       }
     }
   });
@@ -289,14 +292,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       $('body').append(detailView.render().el);
       }
     });
-<<<<<<< Updated upstream
-    
-    // var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
-    // $('.plants').html(detailView.render().el);
 
-
-=======
->>>>>>> Stashed changes
   }
 });
 
