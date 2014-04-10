@@ -169,12 +169,11 @@ loraxApp.Views.PlantCollectionView = Backbone.View.extend({
 });
 
 loraxApp.Views.NewPlantFormView = Backbone.View.extend({
-  className: "plus",
   events: {
-    "click .plus": "renderForm"
+    "click button": "renderForm"
   },
   render: function(){
-    this.$el.html("<button> PLUS </button>");
+    this.$el.html("<div class=\"plus\"> <img height=\"35\" width=\"35\" src=\"public/images/plus.png\"></div>");
     return this;
   },
   renderForm: function(){
