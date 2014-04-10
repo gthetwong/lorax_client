@@ -169,11 +169,12 @@ loraxApp.Views.PlantCollectionView = Backbone.View.extend({
 });
 
 loraxApp.Views.NewPlantFormView = Backbone.View.extend({
+  className: "plus",
   events: {
     "click .plus": "renderForm"
   },
   render: function(){
-    this.$el.html("<button class=\"plus\"> PLUS </button>");
+    this.$el.html("<button> PLUS </button>");
     return this;
   },
   renderForm: function(){
@@ -184,7 +185,6 @@ loraxApp.Views.NewPlantFormView = Backbone.View.extend({
     var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
     $(".plus").html(newPlantView.render().el);
   }
-
 });
 
 loraxApp.Views.NewPlantView = Backbone.View.extend({
