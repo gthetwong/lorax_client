@@ -173,6 +173,7 @@ loraxApp.Views.NewPlantFormView = Backbone.View.extend({
     "click .plus": "renderForm"
   },
   render: function(){
+    console.log("render function");
     this.$el.html("<button class=\"plus\"> PLUS </button>");
   },
   renderForm: function(){
