@@ -289,11 +289,14 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       $('body').append(detailView.render().el);
       }
     });
+<<<<<<< Updated upstream
     
     // var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
     // $('.plants').html(detailView.render().el);
 
 
+=======
+>>>>>>> Stashed changes
   }
 });
 
