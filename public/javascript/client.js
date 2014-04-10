@@ -172,6 +172,9 @@ loraxApp.Views.NewPlantFormView = Backbone.View.extend({
   events: {
     "click .plus": "renderForm"
   },
+  render: function(){
+    this.$el.html("<button class=\"plus\"> PLUS </button>");
+  },
   renderForm: function(){
     // render form here
     console.log("you clicked the plus sign");
@@ -272,7 +275,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
         
         console.log("the plus div was appended");
         var newPlantFormView = new loraxApp.Views.NewPlantFormView();
-        $(".plants").append("<button class=\"plus\"> PLUS </button>");
+        $(".plants").append(newPlantFormView.render().el);
         // var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
         // $(".plants").append(newPlantView.render().el);
 
