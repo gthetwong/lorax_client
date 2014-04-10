@@ -180,8 +180,9 @@ loraxApp.Views.NewPlantFormView = Backbone.View.extend({
     // render form here
     console.log("you clicked the plus sign");
     var current_user = new loraxApp.Models.CurrentUser();
+    console.log(current_user);
     var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
-    $(".plants").append(newPlantView.render().el);
+    $(".plus").html(newPlantView.render().el);
   }
 
 });
@@ -276,7 +277,6 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       console.log(garden);
       if (garden.length < 8){
         // plus sign should appear here. when the plus sign is clicked render the newPlantView
-        
         console.log("the plus div was appended");
         var newPlantFormView = new loraxApp.Views.NewPlantFormView();
         $(".plants").append(newPlantFormView.render().el);
