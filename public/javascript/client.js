@@ -173,14 +173,15 @@ loraxApp.Views.NewPlantFormView = Backbone.View.extend({
     "click .plus": "renderForm"
   },
   render: function(){
-    console.log("render function");
-
     this.$el.html("<button class=\"plus\"> PLUS </button>");
     return this;
   },
   renderForm: function(){
     // render form here
     console.log("you clicked the plus sign");
+    var current_user = new loraxApp.Models.CurrentUser();
+    var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
+    $(".plants").append(newPlantView.render().el);
   }
 
 });
@@ -281,7 +282,6 @@ loraxApp.Routers.Main = Backbone.Router.extend({
         $(".plants").append(newPlantFormView.render().el);
         // var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
         // $(".plants").append(newPlantView.render().el);
-
       }
     }
   });
