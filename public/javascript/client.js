@@ -129,9 +129,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
 loraxApp.Views.PlantView = Backbone.View.extend({
   className: "plant",
   events: {
-    "click .plant" : "detail",
-    // click event on the "+" happens here 
-    "click .plus" : "addplant"
+    "click .plant" : "detail"
   },
   render: function(){
     var that = this;
@@ -152,10 +150,6 @@ loraxApp.Views.PlantView = Backbone.View.extend({
     var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
     $('.plants').html(detailView.render().el);
         loraxApp.router.navigate(path);
-  },
-  addplant: function(){
-    // render form here
-    console.log("you clicked the plus sign");
   }
 });
 
@@ -172,6 +166,17 @@ loraxApp.Views.PlantCollectionView = Backbone.View.extend({
     }, this);
     return this;
   }
+});
+
+loraxApp.Views.NewPlantFormView = Backbone.View.extend({
+  events: {
+    "click .plus": "renderForm"
+  },
+  renderForm: function(){
+    // render form here
+    console.log("you clicked the plus sign");
+  }
+
 });
 
 loraxApp.Views.NewPlantView = Backbone.View.extend({
@@ -264,8 +269,10 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       console.log(garden);
       if (garden.length < 8){
         // plus sign should appear here. when the plus sign is clicked render the newPlantView
-        $(".plants").append("<button class=\"plus\"> PLUS </button>");
+        
         console.log("the plus div was appended");
+        var newPlantFormView = new loraxApp.Views.NewPlantFormView();
+        $(".plants").append("<button class=\"plus\"> PLUS </button>");
         // var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
         // $(".plants").append(newPlantView.render().el);
 
