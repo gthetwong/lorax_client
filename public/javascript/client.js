@@ -264,7 +264,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       console.log(garden);
       if (garden.length < 8){
         // plus sign should appear here. when the plus sign is clicked render the newPlantView
-        $(".plants").append("<div class=\"plus\"> PLUS SIGN HERE </div>");
+        $(".plants").append("<button class=\"plus\"> PLUS </button>");
         console.log("the plus div was appended");
         // var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
         // $(".plants").append(newPlantView.render().el);
