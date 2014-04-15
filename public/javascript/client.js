@@ -197,6 +197,8 @@ loraxApp.Views.NewPlantView = Backbone.View.extend({
         var Template = Handlebars.compile(template);
         var html = Template();
         that.$el.html(html);
+        // trying to trigger reroute to profile
+        app_router.navigate('profile', {trigger:true});
       });
     }
     return this;
@@ -206,26 +208,26 @@ loraxApp.Views.NewPlantView = Backbone.View.extend({
     console.log(event);
     //we're getting the values of the form from the submission event
     var name = event.target[0].value;
-    var type = event.target[1].value;
     var serial = event.target[2].value;
     var sensor = event.target[3].value;
     // var redline = event.target[4].value;
     var redline;
+    var type = event.target[1].value;
     switch(type)
     {
-      case "plant1":
+      case "plant1": // plant1 is "Cactus or Succulent" on the form
         redline = 1000;
         break;
-      case "plant2":
+      case "plant2": // plant2 is "Leafy Plant" on the form
         redline = 750;
         break;
-      case "plant3":
+      case "plant3": // plant3 is "Flowering Plant"
         redline = 850;
         break;
-      case "plant4":
+      case "plant4": // plant4 is "Fruit Bearing Plant"
         redline = "900";
         break;
-      default:
+      default: // default redline is 700
         redline = 700;
     }
     var owner_id = this.model.attributes._id;
@@ -294,8 +296,6 @@ loraxApp.Routers.Main = Backbone.Router.extend({
         console.log("the plus div was appended");
         var newPlantFormView = new loraxApp.Views.NewPlantFormView();
         $(".plants").append(newPlantFormView.render().el);
-        // var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
-        // $(".plants").append(newPlantView.render().el);
       }
     }
   });
