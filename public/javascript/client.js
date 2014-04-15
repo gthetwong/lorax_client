@@ -173,7 +173,7 @@ loraxApp.Views.NewPlantFormView = Backbone.View.extend({
     "click .plus": "renderForm"
   },
   render: function(){
-    this.$el.html("<div class=\"plus\"> <img height=\"50\" width=\"50\" src=\"http://thumb10.shutterstock.com/display_pic_with_logo/1319155/138739403/stock-photo-green-grass-plus-signs-138739403.jpg\"></div>");
+    this.$el.html("<div class=\"plant-form\"><div class=\"plus\"> <img height=\"50\" width=\"50\" src=\"http://thumb10.shutterstock.com/display_pic_with_logo/1319155/138739403/stock-photo-green-grass-plus-signs-138739403.jpg\"></div></div>");
     return this;
   },
   renderForm: function(){
@@ -275,7 +275,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
         // plus sign should appear here. when the plus sign is clicked render the newPlantView
         console.log("the plus div was appended");
         var newPlantFormView = new loraxApp.Views.NewPlantFormView();
-        $(".plant-form").append(newPlantFormView.render().el);
+        $(".plants").append(newPlantFormView.render().el);
         // var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
         // $(".plants").append(newPlantView.render().el);
       }
