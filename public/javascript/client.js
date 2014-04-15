@@ -198,7 +198,7 @@ loraxApp.Views.NewPlantView = Backbone.View.extend({
         var html = Template();
         that.$el.html(html);
         // trying to trigger reroute to profile
-        loraxApp.Routers.Main.navigate('profile', {trigger:true});
+        loraxApp.router.navigate('profile', {trigger:true});
       });
     }
     return this;
