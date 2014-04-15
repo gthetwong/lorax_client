@@ -179,7 +179,7 @@ loraxApp.Views.NewPlantFormView = Backbone.View.extend({
   renderForm: function(){
     var current_user = new loraxApp.Models.CurrentUser();
     var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
-    $(".plant").append(newPlantView.render().el);
+    $(".plant-form").html(newPlantView.render().el);
   }
 });
 
