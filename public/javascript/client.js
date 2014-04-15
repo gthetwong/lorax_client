@@ -275,7 +275,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
         // plus sign should appear here. when the plus sign is clicked render the newPlantView
         console.log("the plus div was appended");
         var newPlantFormView = new loraxApp.Views.NewPlantFormView();
-        $(".plants").append(newPlantFormView.render().el);
+        $(".plant-form").append(newPlantFormView.render().el);
         // var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
         // $(".plants").append(newPlantView.render().el);
       }
