@@ -197,8 +197,6 @@ loraxApp.Views.NewPlantView = Backbone.View.extend({
         var Template = Handlebars.compile(template);
         var html = Template();
         that.$el.html(html);
-        // trying to trigger reroute to profile
-        loraxApp.router.navigate('profile', {trigger:true});
       });
     }
     return this;
@@ -256,7 +254,8 @@ loraxApp.Views.NewPlantView = Backbone.View.extend({
     $.post("register/"+owner_id+"/"+serial+"/"+sensor+"/"+redline).done(function(){
       console.log("success!");
      });
-
+    // trying to trigger reroute to profile
+    loraxApp.router.navigate('profile', {trigger:true});
   }
 });
 
