@@ -209,7 +209,25 @@ loraxApp.Views.NewPlantView = Backbone.View.extend({
     var type = event.target[1].value;
     var serial = event.target[2].value;
     var sensor = event.target[3].value;
-    var redline = event.target[4].value;
+    // var redline = event.target[4].value;
+    var redline;
+    switch(type)
+    {
+      case "plant1":
+        redline = 1000;
+        break;
+      case "plant2":
+        redline = 750;
+        break;
+      case "plant3":
+        redline = 850;
+        break;
+      case "plant4":
+        redline = "900";
+        break;
+      default:
+        redline = 700;
+    }
     var owner_id = this.model.attributes._id;
     //logging the values to check 
     console.log(name);
