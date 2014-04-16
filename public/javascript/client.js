@@ -203,6 +203,7 @@ loraxApp.Views.NewPlantView = Backbone.View.extend({
   },
   create: function(event){
     event.preventDefault();
+    var that = this;
     console.log(event);
     //we're getting the values of the form from the submission event
     var name = event.target[0].value;
@@ -254,7 +255,7 @@ loraxApp.Views.NewPlantView = Backbone.View.extend({
     $.post("register/"+owner_id+"/"+serial+"/"+sensor+"/"+redline).done(function(){
       console.log("success!");
     // trying to trigger reroute to profile
-      this.collection.fetch();
+      that.collection.fetch();
    });
   }
 });
