@@ -86,7 +86,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
         var html = Template(that.model.attributes);
         that.$el.html(html);//This portion grabbing the template and putting it on the page
 
-             
+         
 
         var updateData = function(){$.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
             var parsedData = JSON.parse(res);
@@ -118,11 +118,9 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
                 }
               ]
             };  
-
             console.log(data);
             return data;
           });
-        return data;
         };
           var optionsNoAnimation = {
             animation:false
