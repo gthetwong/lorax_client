@@ -318,9 +318,9 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       var detailView = new loraxApp.Views.PlantDetailView({ model: a_model });
       $('body').append(detailView.render().el);
 
-      window.setInterval(function(){
+      setInterval(function(){
       $(".chart").html(detailView.render().el);
-    },5000);
+      }, 10000);
       }
     });
 
