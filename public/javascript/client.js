@@ -253,10 +253,8 @@ loraxApp.Views.NewPlantView = Backbone.View.extend({
    //this post sends data to a local express route which then posts to the service layer
     $.post("register/"+owner_id+"/"+serial+"/"+sensor+"/"+redline).done(function(){
       console.log("success!");
-    
-    console.log("navigate to profile!");
     // trying to trigger reroute to profile
-    loraxApp.router.navigate("profile", {trigger:true});
+      this.collection.fetch();
    });
   }
 });
@@ -295,7 +293,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       if (garden.length < 8){
         // plus sign should appear here. when the plus sign is clicked render the newPlantView
         console.log("the plus div was appended");
-        var newPlantFormView = new loraxApp.Views.NewPlantFormView();
+        var newPlantFormView = new loraxApp.Views.NewPlantFormView({ collection: garden });
         $(".plants").append(newPlantFormView.render().el);
       }
     }
