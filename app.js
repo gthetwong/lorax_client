@@ -77,7 +77,7 @@ app.get('/profile/plantdata/:serial/:sensor', function(req, res){
 });
 
 var tweet = require('./app/tweet.js');
-app.post('/notify/:owner/:pi_id/:sensor', tweet.sendTweet);
+app.post('/notify/:owner/:pi_id/:sensor/:timedif', tweet.sendTweet);
 
 // app.get('/tweet', tweet.sendTweet);
 
