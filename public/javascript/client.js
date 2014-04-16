@@ -253,10 +253,11 @@ loraxApp.Views.NewPlantView = Backbone.View.extend({
    //this post sends data to a local express route which then posts to the service layer
     $.post("register/"+owner_id+"/"+serial+"/"+sensor+"/"+redline).done(function(){
       console.log("success!");
-     });
+    
     console.log("navigate to profile!");
     // trying to trigger reroute to profile
     loraxApp.router.navigate("profile", {trigger:true});
+   });
   }
 });
 
