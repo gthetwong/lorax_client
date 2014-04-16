@@ -85,20 +85,23 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
         var Template = Handlebars.compile(template);
         var html = Template(that.model.attributes);
         that.$el.html(html);//not on the page yet
-        var redline = that.model.attributes.redline;
-        $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
-          var parsedData = JSON.parse(res);
-          var readings=[];
-          var redlineVal=[];
-          var timestamp=[];
-          _.each(parsedData.rows, function(result){
-            readings.push(result.reading); //creating an array of soil moisture reading
-            timestamp.push(result.recordtime); //creating an array of timestamp at each reading
-            redlineVal.push(redline);      //creating an array of redline constant
-          });
-        console.log(readings);
-        console.log(redlineVal);
-        console.log(timestamp);
+      });
+    }
+    return this;
+  },
+  graph: function(){
+    var that= this;
+    var redline = that.model.attributes.redline;
+     $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+        var parsedData = JSON.parse(res);
+        var readings=[];
+        var redlineVal=[];
+        var timestamp=[];
+        _.each(parsedData.rows, function(result){
+          readings.push(result.reading); //creating an array of soil moisture reading
+          timestamp.push(result.recordtime); //creating an array of timestamp at each reading
+          redlineVal.push(redline);      //creating an array of redline constant
+        });
         var chart_canvas = that.el.querySelector(".soilMoistChart");
         var ctx = chart_canvas.getContext("2d");
         var data = {
@@ -120,11 +123,8 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
         };
         var optionsNoAnimation = {animation : false};
         new Chart(ctx).Line(data, optionsNoAnimation);
-        });
       });
     }
-    return this;
-  }
 });
 
 loraxApp.Views.PlantView = Backbone.View.extend({
@@ -296,7 +296,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
         // plus sign should appear here. when the plus sign is clicked render the newPlantView
         console.log("the plus div was appended");
         var newPlantFormView = new loraxApp.Views.NewPlantFormView();
-        $(".plants").append(newPlantFormView.render().el);
+        $(".plants").append(newPlantFormView.render().graph().el);
       }
     }
   });
@@ -318,10 +318,6 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       console.log(a_model,"the model");
       var detailView = new loraxApp.Views.PlantDetailView({ model: a_model });
       $('body').append(detailView.render().el);
-
-      var update_graph = setInterval(function(){
-      $(".chart").html(detailView.render().el);
-      }, 10000);
       }
     });
 
