@@ -112,8 +112,11 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
         var updateData = function(readings, redlineVal, timestamp){$.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
             var parsedData = JSON.parse(res);
             _.each(parsedData.rows, function(result){
+              
               readings.push(result.reading); //creating an array of soil moisture reading
+              
               timestamp.push(result.recordtime); //creating an array of timestamp at each reading
+             
               redlineVal.push(redline);      //creating an array of redline constant
             });
           });
@@ -122,16 +125,15 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
           animation:false
         };
 
-        // console.log(readings);
-        // console.log(redlineVal);
-        // console.log(timestamp);
+        console.log(readings);
+        console.log(redlineVal);
+        console.log(timestamp);
           var chart_canvas = that.el.querySelector(".soilMoistChart");
           var ctx = chart_canvas.getContext("2d");
           var barchart = new Chart(ctx).Line(data);
 
           setInterval(function(){
             updateData(readings, redlineVal, timestamp);
-            console.log(barchart);
             barchart.Line(data, optionsNoAnimation);
           }, 2000);
       });
