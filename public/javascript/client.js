@@ -92,7 +92,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
   graph: function(){
     var that= this;
     var redline = that.model.attributes.redline;
-     $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+     $.get("/profile/plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
         var parsedData = JSON.parse(res);
         var readings=[];
         var redlineVal=[];
