@@ -281,6 +281,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
   },
   profile: function() {
     console.log("profile view");
+    if (update_graph){clearInterval(update_graph);}
     var current_user = new loraxApp.Models.CurrentUser();
     var view = new loraxApp.Views.ProfileView({model: current_user});
     $("body").html(view.render().el);
@@ -318,7 +319,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       var detailView = new loraxApp.Views.PlantDetailView({ model: a_model });
       $('body').append(detailView.render().el);
 
-      setInterval(function(){
+      var update_graph = setInterval(function(){
       $(".chart").html(detailView.render().el);
       }, 10000);
       }
