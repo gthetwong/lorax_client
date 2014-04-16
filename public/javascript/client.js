@@ -131,9 +131,9 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
 
           setInterval(function(){
             updateData(readings, redlineVal, timestamp);
+            console.log(barchart);
             barchart.Line(data, optionsNoAnimation);
           }, 2000);
-        
       });
     }
     return this;
