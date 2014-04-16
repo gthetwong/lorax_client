@@ -305,6 +305,9 @@ loraxApp.Routers.Main = Backbone.Router.extend({
     var current_user = new loraxApp.Models.CurrentUser();
     var view = new loraxApp.Views.ProfileView({model: current_user});
     $("body").html(view.render().el);
+    window.setInterval(function(){
+      $("body").html(view.render().el);
+    },5000);
 
     var garden = new loraxApp.Collections.PlantCollection();
     garden.fetch({
