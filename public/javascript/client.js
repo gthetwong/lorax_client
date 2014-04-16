@@ -100,7 +100,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
         console.log(readings);
         console.log(redlineVal);
         console.log(timestamp);
-        var chart_canvas = that.el.querySelector(".soilMoistChart");
+        var chart_canvas = that.$el.querySelector(".soilMoistChart");
         var ctx = chart_canvas.getContext("2d");
         var data = {
           labels : timestamp,
