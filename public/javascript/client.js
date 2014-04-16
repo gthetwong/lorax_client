@@ -129,7 +129,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
 
           var chart_canvas = that.el.querySelector(".soilMoistChart");
           var ctx = chart_canvas.getContext("2d");
-          var barchart = new Chart(ctx).Line(data);
+          var barchart = new Chart(ctx);
 
           setInterval(function(){
             data = updateData();
