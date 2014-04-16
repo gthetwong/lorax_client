@@ -94,12 +94,10 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
             var readings=[];
             var redlineVal=[];
             var timestamp=[];
+
             _.each(parsedData.rows, function(result){
-              
               readings.push(result.reading); //creating an array of soil moisture reading
-              
               timestamp.push(result.recordtime); //creating an array of timestamp at each reading
-             
               redlineVal.push(redline);      //creating an array of redline constant
             });
 
@@ -119,12 +117,12 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
                   data: redlineVal
                 }
               ]
-            };   
+            };  
+
             console.log(data);
             return data;
           });
         };
-          console.log(data);
           var optionsNoAnimation = {
             animation:false
           };
