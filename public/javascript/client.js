@@ -119,15 +119,16 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
              
               redlineVal.push(redline);      //creating an array of redline constant
             });
+            
+        console.log(readings);
+        console.log(redlineVal);
+        console.log(timestamp);
           });
         };
         var optionsNoAnimation = {
           animation:false
         };
 
-        console.log(readings);
-        console.log(redlineVal);
-        console.log(timestamp);
           var chart_canvas = that.el.querySelector(".soilMoistChart");
           var ctx = chart_canvas.getContext("2d");
           var barchart = new Chart(ctx).Line(data);
