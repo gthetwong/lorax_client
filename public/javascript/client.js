@@ -87,7 +87,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
         that.$el.html(html);//This portion grabbing the template and putting it on the page
         var redline = that.model.attributes.redline;
 
-        window.setInterval($.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+        setInterval($.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
           var parsedData = JSON.parse(res);
           var readings=[];
           var redlineVal=[];
@@ -99,7 +99,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
           });
         console.log(readings);
         console.log(redlineVal);
-        // console.log(timestamp);
+        console.log(timestamp);
         var chart_canvas = that.el.querySelector(".soilMoistChart");
         var ctx = chart_canvas.getContext("2d");
         var data = {
