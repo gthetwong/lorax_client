@@ -122,6 +122,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
             console.log(data);
             return data;
           });
+        return data;
         };
           var optionsNoAnimation = {
             animation:false
