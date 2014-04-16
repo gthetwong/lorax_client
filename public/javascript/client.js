@@ -150,8 +150,7 @@ loraxApp.Views.PlantView = Backbone.View.extend({
   detail: function(){
     var path = "profile/"+this.model.attributes._id;
     var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
-    setInterval(function(){ 
-      $('.plants').html(detailView.render().graph().el);}, 10000);
+      $('.plants').html(detailView.render().graph().el);
         loraxApp.router.navigate(path);
   }
 });
@@ -319,7 +318,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
 
       console.log(a_model,"the model");
       var detailView = new loraxApp.Views.PlantDetailView({ model: a_model });
-      $('body').append(detailView.render().el);
+      $('body').append(detailView.render().graph().el);
       }
     });
 
