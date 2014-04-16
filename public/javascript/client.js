@@ -119,7 +119,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
           ]
         };
         var optionsNoAnimation = {animation : false};
-        new Chart(ctx).Line(data, optionsNoAnimation);
+        new Chart(ctx).Line(data, op);
         });
       });
     }

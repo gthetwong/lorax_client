@@ -23,6 +23,7 @@ exports.sendTweet = function(req,res){
   var owner = data.owner;
   var pi = data.pi_id;
   var sensor = data.sensor;
+  var been_dry = data.timedif;
 
   var username = User.findOne({ '_id' : owner }, function(err, user) {
     if (err)
@@ -36,12 +37,33 @@ exports.sendTweet = function(req,res){
           return done(err);
         if(plant){
           // return plant.nickname;
-          tweet.statuses("update", {status: "@"+user.twitter.username+" please water "+plant.nickname+"#projectlorax "+timeNow}, 
-            access.at, access.ats, function(er, d, r){
-              if(er){
-                console.log(er);
-              }
+          switch(been_dry) {
+            case been_dry === 12:
+              tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+plant.nickname+"#projectlorax "+timeNow}, 
+              access.at, access.ats, function(er, d, r){
+                if(er){
+                  console.log(er);
+                }
+              });
+            break;
+            case been_dry === 24:
+              tweet.statuses("update", {status: "@"+user.twitter.username +", you need to water me soon... #projectlorax " + timeNow }, access.at, access.ats, function(er, d, r){
+              if (er){console.log(er);}
             });
+            break;
+            case been_dry === 48:
+              tweet.statuses("update", {status: "Don't forget about your pal "+ plant.nickname + ", @" + user.twitter.username+". It's been two days since they've been over the redline! #projectlorax " + timeNow}, access.at, access.ats, function(er, d, r){
+              if (er){console.log(er);}
+            });
+            break;
+            case been_dry === 72:
+               tweet.statuses("update", {status: "@"+user.twitter.username + ", this is your final warning... "+ plant.nickname + " needs to be watered! Don't neglect your plant friend!  #projectlorax " + timeNow},
+                access.at, access.ats, function(er, d, r){
+              if (er){console.log(er);}
+            });
+            break;
+          }
+          
         }
       });
     }
