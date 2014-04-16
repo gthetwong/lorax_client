@@ -89,10 +89,10 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
     }
     return this;
   },
-  graph: function(){
+  data: function(){
     var that= this;
     var redline = that.model.attributes.redline;
-     $.get("/profile/plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+    var currentdata = $.get("/profile/plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
         var parsedData = JSON.parse(res);
         var readings=[];
         var redlineVal=[];
@@ -102,8 +102,6 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
           timestamp.push(result.recordtime); //creating an array of timestamp at each reading
           redlineVal.push(redline);      //creating an array of redline constant
         });
-        var chart_canvas = that.el.querySelector(".soilMoistChart");
-        var ctx = chart_canvas.getContext("2d");
         var data = {
           labels : timestamp,
           datasets: [
@@ -121,12 +119,22 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
           }
           ]
         };
-        var optionsNoAnimation = {animation : false};
-        new Chart(ctx).Line(data, optionsNoAnimation);
-      });
+      return data;
+    });
+    return currentdata;
+  },
+  graph: function(){
+    
+    var chart_canvas = that.el.querySelector(".soilMoistChart");
+    var ctx = chart_canvas.getContext("2d");
+    
+    var optionsNoAnimation = {animation : false};
+    var chart = chart || new Chart(ctx).Line(data, optionsNoAnimation);
     return this;
     }
 });
+
+
 
 loraxApp.Views.PlantView = Backbone.View.extend({
   className: "plant",
@@ -150,7 +158,8 @@ loraxApp.Views.PlantView = Backbone.View.extend({
   detail: function(){
     var path = "profile/"+this.model.attributes._id;
     var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
-      $('.plants').html(detailView.render().graph().el);
+      $('.plants').html(detailView.render().el);
+      console.log(detailView.data());
         loraxApp.router.navigate(path);
   }
 });
@@ -319,7 +328,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       console.log(a_model,"the model");
       var detailView = new loraxApp.Views.PlantDetailView({ model: a_model });
       $(document).ready( function(){$('body').append(detailView.render().el);
-      detailView.graph();});
+      console.log(detailView.data());});
       }
     });
 
