@@ -84,9 +84,10 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
       $.get("/api/plant_detail_template").done(function(template){
         var Template = Handlebars.compile(template);
         var html = Template(that.model.attributes);
-        that.$el.html(html);//not on the page yet
+        that.$el.html(html);//This portion grabbing the template and putting it on the page
         var redline = that.model.attributes.redline;
-        $.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+
+        window.setInterval($.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
           var parsedData = JSON.parse(res);
           var readings=[];
           var redlineVal=[];
@@ -119,7 +120,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
           ]
         };
         new Chart(ctx).Line(data);
-        });
+        }), 4000);
       });
     }
     return this;
