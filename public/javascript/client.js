@@ -124,6 +124,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
         var optionsNoAnimation = {animation : false};
         new Chart(ctx).Line(data, optionsNoAnimation);
       });
+    return this;
     }
 });
 
@@ -149,7 +150,7 @@ loraxApp.Views.PlantView = Backbone.View.extend({
   detail: function(){
     var path = "profile/"+this.model.attributes._id;
     var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
-    $('.plants').html(detailView.render().el);
+    $('.plants').html(detailView.render().graph().el);
         loraxApp.router.navigate(path);
   }
 });
@@ -296,7 +297,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
         // plus sign should appear here. when the plus sign is clicked render the newPlantView
         console.log("the plus div was appended");
         var newPlantFormView = new loraxApp.Views.NewPlantFormView();
-        $(".plants").append(newPlantFormView.render().graph().el);
+        $(".plants").append(newPlantFormView.render().el);
       }
     }
   });
