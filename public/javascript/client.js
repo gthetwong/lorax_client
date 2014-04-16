@@ -86,31 +86,14 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
         var html = Template(that.model.attributes);
         that.$el.html(html);//This portion grabbing the template and putting it on the page
 
-        var redline = that.model.attributes.redline;
-        var readings=[];
-        var redlineVal=[];
-        var timestamp=[];
-        
-        var data = {
-          labels : timestamp,
-          datasets: [
-            { fillColor : "rgba(151,187,205,0.5)",
-              strokeColor : "rgba(151,187,205,1)",
-              pointColor : "rgba(151,187,205,1)",
-              pointStrokeColor : "#fff",
-              data: readings
-            },
-            { fillColor : "rgba(220,220,220,0)",
-              strokeColor : "rgba(255,0,0,1)",
-              pointColor : "rgba(255,0,0,1)",
-              pointStrokeColor : "#fff",
-              data: redlineVal
-            }
-          ]
-        };        
+             
 
-        var updateData = function(readings, redlineVal, timestamp){$.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+        var updateData = function(){$.get("plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
             var parsedData = JSON.parse(res);
+            var redline = that.model.attributes.redline;
+            var readings=[];
+            var redlineVal=[];
+            var timestamp=[];
             _.each(parsedData.rows, function(result){
               
               readings.push(result.reading); //creating an array of soil moisture reading
@@ -119,22 +102,40 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
              
               redlineVal.push(redline);      //creating an array of redline constant
             });
-            
-        console.log(readings);
-        console.log(redlineVal);
-        console.log(timestamp);
+
+            var data = {
+              labels : timestamp,
+              datasets: [
+                { fillColor : "rgba(151,187,205,0.5)",
+                  strokeColor : "rgba(151,187,205,1)",
+                  pointColor : "rgba(151,187,205,1)",
+                  pointStrokeColor : "#fff",
+                  data: readings
+                },
+                { fillColor : "rgba(220,220,220,0)",
+                  strokeColor : "rgba(255,0,0,1)",
+                  pointColor : "rgba(255,0,0,1)",
+                  pointStrokeColor : "#fff",
+                  data: redlineVal
+                }
+              ]
+            };   
+            console.log(data);
+            return data;
           });
         };
-        var optionsNoAnimation = {
-          animation:false
-        };
+          console.log(data);
+          var optionsNoAnimation = {
+            animation:false
+          };
 
           var chart_canvas = that.el.querySelector(".soilMoistChart");
           var ctx = chart_canvas.getContext("2d");
           var barchart = new Chart(ctx).Line(data);
 
           setInterval(function(){
-            updateData(readings, redlineVal, timestamp);
+            data = updateData();
+            console.log(data);
             barchart.Line(data, optionsNoAnimation);
           }, 2000);
       });
