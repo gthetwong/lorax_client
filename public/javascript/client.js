@@ -305,9 +305,6 @@ loraxApp.Routers.Main = Backbone.Router.extend({
     var current_user = new loraxApp.Models.CurrentUser();
     var view = new loraxApp.Views.ProfileView({model: current_user});
     $("body").html(view.render().el);
-    window.setInterval(function(){
-      $("body").html(view.render().el);
-    },5000);
 
     var garden = new loraxApp.Collections.PlantCollection();
     garden.fetch({
@@ -319,6 +316,10 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       console.log(a_model,"the model");
       var detailView = new loraxApp.Views.PlantDetailView({ model: a_model });
       $('body').append(detailView.render().el);
+
+      window.setInterval(function(){
+      $(".chart").html(detailView.render().el);
+    },5000);
       }
     });
 
