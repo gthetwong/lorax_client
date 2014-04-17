@@ -91,8 +91,8 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
   },
   data: function(){
     var that= this;
-    $.get("/profile/plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id, function(res){
-       var redline = that.model.attributes.redline;
+    $.get("/profile/plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+        var redline = that.model.attributes.redline;
           var parsedData = JSON.parse(res);
           var readings=[];
           var redlineVal=[];
@@ -120,19 +120,15 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
             ]
           };
           return data;
-        }.done(function(res){
-          //this is returning the original queries' response, not the success callback. 
-          console.log(res);
-          that.graph(res);
-      }));
-
-       return this;
+        });
+    //want to return data here or run graph from here
     },
 
-  graph: function(data){
-    var that = this;
+  graph: function(){
+    
     var chart_canvas = that.el.querySelector(".soilMoistChart");
     var ctx = chart_canvas.getContext("2d");
+    
     var optionsNoAnimation = {animation : false};
     var chart = chart || new Chart(ctx).Line(data, optionsNoAnimation);
     return this;
