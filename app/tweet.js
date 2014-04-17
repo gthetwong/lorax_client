@@ -40,10 +40,11 @@ exports.sendTweet = function(req,res){
           console.log(been_dry);
           console.log(user.username);
           console.log(plant.nickname);
+          console.log(access.at);
+          console.log(access.ats);
           switch(been_dry) {
             case 2:
-              tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+plant.nickname+"#projectlorax "+timeNow}, 
-              access.at, access.ats, function(er, d, r){
+              tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+plant.nickname+"#projectlorax "+timeNow}, access.at, access.ats, function(er, d, r){
                 if(er){
                   console.log(er);
                 }
