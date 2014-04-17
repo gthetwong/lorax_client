@@ -74,6 +74,9 @@ loraxApp.Views.ProfileView = Backbone.View.extend({
 
 loraxApp.Views.PlantDetailView = Backbone.View.extend({
   className:"chart",
+  events: {
+    "click a":"backToProfile"
+  },
   render: function(){
     var that = this;
     if(this.template){
@@ -88,6 +91,9 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
       });
     }
     return this;
+  },
+  backToProfile: function(){
+    console.log("let's go back to the profile page");
   },
   data: function(){
     var that = this;
