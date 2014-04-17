@@ -96,8 +96,9 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
   },
 
   update: function(){
+    var that = this;
     return (function(){ 
-      this.data().done(function(res){
+      that.data().done(function(res){
           var parsedData = JSON.parse(res);
           var readings=[];
           var redlineVal=[];
