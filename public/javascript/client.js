@@ -120,11 +120,13 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
             ]
           };
           return data;
-        }).done(function(res){
+        }.done(function(res){
+          //this is returning the original queries' response, not the success callback. 
           console.log(res);
           that.graph(res);
-      });
-        return this;
+      }));
+
+       return this;
     },
 
   graph: function(data){
