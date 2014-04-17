@@ -90,7 +90,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
     return this;
   },
   data: function(){
-    var that= this;
+    var that = this;
     $.get("/profile/plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
         var redline = that.model.attributes.redline;
           var parsedData = JSON.parse(res);
@@ -126,7 +126,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
     },
 
   graph: function(data){
-    
+    var that = this;
     var chart_canvas = that.el.querySelector(".soilMoistChart");
     var ctx = chart_canvas.getContext("2d");
     
