@@ -74,7 +74,7 @@ exports.sendTweet = function(req,res){
             });
             break;
           }
-          
+          res.send("200, success");
         }
       });
     }
