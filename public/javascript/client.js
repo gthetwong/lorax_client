@@ -121,15 +121,16 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
           };
           return data;
         }).done(function(res){
+          console.log(res);
           that.graph(res);
       });
+        return this;
     },
 
   graph: function(data){
     var that = this;
     var chart_canvas = that.el.querySelector(".soilMoistChart");
     var ctx = chart_canvas.getContext("2d");
-    
     var optionsNoAnimation = {animation : false};
     var chart = chart || new Chart(ctx).Line(data, optionsNoAnimation);
     return this;
