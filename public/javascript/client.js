@@ -96,7 +96,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
   },
 
   update: function(){
-    return function(){ 
+    return (function(){ 
       this.data().done(function(res){
           var parsedData = JSON.parse(res);
           var readings=[];
@@ -126,7 +126,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
           };
           return data;
         });
-      };
+      })();
     //this is where i want data returned 
   },
 
