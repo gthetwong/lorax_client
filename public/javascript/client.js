@@ -92,7 +92,8 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
   data: function(){
     var that= this;
     var redline = that.model.attributes.redline;
-    var currentdata = function(){ $.get("/profile/plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
+    var current_data = {};
+    $.get("/profile/plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
         var parsedData = JSON.parse(res);
         var readings=[];
         var redlineVal=[];
@@ -119,10 +120,9 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
           }
           ]
         };
-      return data;
+      current_data = data;
     });
-  };
-    return currentdata();
+    return current_data;
   },
   graph: function(){
     
