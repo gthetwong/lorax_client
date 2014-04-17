@@ -92,38 +92,44 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
   data: function(){
     var that= this;
     var redline = that.model.attributes.redline;
-    var current_data = {};
-    $.get("/profile/plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id).done(function(res){
-        var parsedData = JSON.parse(res);
-        var readings=[];
-        var redlineVal=[];
-        var timestamp=[];
-        _.each(parsedData.rows, function(result){
-          readings.push(result.reading); //creating an array of soil moisture reading
-          timestamp.push(result.recordtime); //creating an array of timestamp at each reading
-          redlineVal.push(redline);      //creating an array of redline constant
-        });
-        var data = {
-          labels : timestamp,
-          datasets: [
-          { fillColor : "rgba(151,187,205,0.5)",
-            strokeColor : "rgba(151,187,205,1)",
-            pointColor : "rgba(151,187,205,1)",
-            pointStrokeColor : "#fff",
-            data: readings
-          },
-          { fillColor : "rgba(220,220,220,0)",
-            strokeColor : "rgba(255,0,0,1)",
-            pointColor : "rgba(255,0,0,1)",
-            pointStrokeColor : "#fff",
-            data: redlineVal
-          }
-          ]
-        };
-      current_data = data;
-    });
-    return current_data;
+    return $.get("/profile/plantdata/"+that.model.attributes.pi_serial_id+"/"+that.model.attributes.sensor_id);
   },
+
+  update: function(){
+    return function(){ 
+      this.data().done(function(res){
+          var parsedData = JSON.parse(res);
+          var readings=[];
+          var redlineVal=[];
+          var timestamp=[];
+          _.each(parsedData.rows, function(result){
+            readings.push(result.reading); //creating an array of soil moisture reading
+            timestamp.push(result.recordtime); //creating an array of timestamp at each reading
+            redlineVal.push(redline);      //creating an array of redline constant
+          });
+          var data = {
+            labels : timestamp,
+            datasets: [
+            { fillColor : "rgba(151,187,205,0.5)",
+              strokeColor : "rgba(151,187,205,1)",
+              pointColor : "rgba(151,187,205,1)",
+              pointStrokeColor : "#fff",
+              data: readings
+            },
+            { fillColor : "rgba(220,220,220,0)",
+              strokeColor : "rgba(255,0,0,1)",
+              pointColor : "rgba(255,0,0,1)",
+              pointStrokeColor : "#fff",
+              data: redlineVal
+            }
+            ]
+          };
+          return data;
+        });
+      };
+    //this is where i want data returned 
+  },
+
   graph: function(){
     
     var chart_canvas = that.el.querySelector(".soilMoistChart");
@@ -161,6 +167,7 @@ loraxApp.Views.PlantView = Backbone.View.extend({
     var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
       $('.plants').html(detailView.render().el);
       console.log(detailView.data());
+      console.log(detailView.update());
         loraxApp.router.navigate(path);
   }
 });
