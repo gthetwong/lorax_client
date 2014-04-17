@@ -121,12 +121,12 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
           };
           return data;
         }).done(function(res){
-          console.log(res);
+          that.graph(res);
       });
     },
 
-  graph: function(){
-    
+  graph: function(data){
+    var that = this;
     var chart_canvas = that.el.querySelector(".soilMoistChart");
     var ctx = chart_canvas.getContext("2d");
     
@@ -162,7 +162,6 @@ loraxApp.Views.PlantView = Backbone.View.extend({
     var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
       $('.plants').html(detailView.render().el);
       console.log(detailView.data());
-      console.log(detailView.update());
         loraxApp.router.navigate(path);
   }
 });
