@@ -38,8 +38,8 @@ exports.sendTweet = function(req,res){
         if(plant){
           // return plant.nickname;
           console.log(been_dry);
-          console.log(user);
-          console.log(plant);
+          console.log(user.username);
+          console.log(plant.nickname);
           switch(been_dry) {
             case 2:
               tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+plant.nickname+"#projectlorax "+timeNow}, 
