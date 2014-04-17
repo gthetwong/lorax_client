@@ -119,12 +119,13 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
             }
             ]
           };
-          return data;
+         that.graph(data);
         });
-    //want to return data here or run graph from here
+      
+    return this;
     },
 
-  graph: function(){
+  graph: function(data){
     
     var chart_canvas = that.el.querySelector(".soilMoistChart");
     var ctx = chart_canvas.getContext("2d");
