@@ -38,6 +38,14 @@ exports.sendTweet = function(req,res){
         if(plant){
           // return plant.nickname;
           switch(been_dry) {
+            case been_dry === 2:
+              tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+plant.nickname+"#projectlorax "+timeNow}, 
+              access.at, access.ats, function(er, d, r){
+                if(er){
+                  console.log(er);
+                }
+              });
+            break;
             case been_dry === 12:
               tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+plant.nickname+"#projectlorax "+timeNow}, 
               access.at, access.ats, function(er, d, r){
