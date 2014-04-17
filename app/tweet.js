@@ -47,7 +47,7 @@ exports.sendTweet = function(req,res){
               });
             break;
             case been_dry === 12:
-              tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+plant.nickname+"#projectlorax "+timeNow}, 
+              tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+plant.nickname+" #projectlorax "+timeNow}, 
               access.at, access.ats, function(er, d, r){
                 if(er){
                   console.log(er);
