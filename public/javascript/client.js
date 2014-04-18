@@ -57,6 +57,7 @@ loraxApp.Views.ProfileView = Backbone.View.extend({
     this.listenTo(this.model, "change", this.render);
   },
   render: function(){
+    clearInterval(update_graph);
     var that = this;
     if(this.template){
       var html = this.template(this.model.attributes);
@@ -168,7 +169,7 @@ loraxApp.Views.PlantView = Backbone.View.extend({
     var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
       $('.plants').html(detailView.render().el);
       detailView.data();
-      setInterval(function(){
+      update_graph = setInterval(function(){
         detailView.data();
         console.log("interval");
       }, 10000);
@@ -303,7 +304,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
   },
   profile: function() {
     console.log("profile view");
-   
+    clearInterval(update_graph);
     var current_user = new loraxApp.Models.CurrentUser();
     var view = new loraxApp.Views.ProfileView({model: current_user});
     $("body").html(view.render().el);
@@ -324,6 +325,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
   });
   },
   detail: function(id){
+    clearInterval(update_graph);
     console.log("detail view");
     console.log(id);
     var current_user = new loraxApp.Models.CurrentUser();
@@ -340,7 +342,11 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       console.log(a_model,"the model");
       var detailView = new loraxApp.Views.PlantDetailView({ model: a_model });
       $(document).ready( function(){$('body').append(detailView.render().el);
-      detailView.data();});
+      detailView.data();
+      update_graph = setInterval(function(){
+        detailView.data();
+        console.log("interval");
+      }, 10000);});
       }
     });
 
