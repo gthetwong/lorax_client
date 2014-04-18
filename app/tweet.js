@@ -37,33 +37,45 @@ exports.sendTweet = function(req,res){
           return done(err);
         if(plant){
           // return plant.nickname;
+          console.log(been_dry);
+          console.log(user.twitter.username);
+          console.log(plant.nickname);
           switch(been_dry) {
-            case been_dry === 12:
-              tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+plant.nickname+" #projectlorax "+timeNow}, 
+            case "2":
+              tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+ plant.nickname +" #projectlorax "+timeNow}, access.at, access.ats, function(er, d, r){
+                if(er){
+                  console.log(er);
+                }
+              });
+            break;
+            case "12":
+              console.log("12 hours");
+              tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+ plant.nickname + " #projectlorax "+timeNow}, 
               access.at, access.ats, function(er, d, r){
                 if(er){
                   console.log(er);
                 }
               });
             break;
-            case been_dry === 24:
-              tweet.statuses("update", {status: "@"+user.twitter.username +", you need to water me soon... #projectlorax " + timeNow }, access.at, access.ats, function(er, d, r){
+            case "24":
+              console.log("24 hours");
+              tweet.statuses("update", {status: "@"+user.twitter.username +", you need to water "+ plant.nickname +" soon... #projectlorax " + timeNow }, access.at, access.ats, function(er, d, r){
               if (er){console.log(er);}
             });
             break;
-            case been_dry === 48:
+            case "48":
               tweet.statuses("update", {status: "Don't forget about your pal "+ plant.nickname + ", @" + user.twitter.username+". It's been two days since they've been over the redline! #projectlorax " + timeNow}, access.at, access.ats, function(er, d, r){
               if (er){console.log(er);}
             });
             break;
-            case been_dry === 72:
-               tweet.statuses("update", {status: "@"+user.twitter.username + ", this is your final warning... "+ plant.nickname + " needs to be watered! Don't neglect your plant friend!  #projectlorax " + timeNow},
+            case "72":
+               tweet.statuses("update", {status: "@"+ user.twitter.username + ", this is your final warning... "+ plant.nickname + " needs to be watered! Don't neglect your plant friend!  #projectlorax " + timeNow},
                 access.at, access.ats, function(er, d, r){
               if (er){console.log(er);}
             });
             break;
           }
-          
+          res.send("200, success");
         }
       });
     }
