@@ -170,7 +170,6 @@ loraxApp.Views.PlantView = Backbone.View.extend({
       detailView.data();
       update_graph = setInterval(function(){
         detailView.data();
-        console.log("interval");
       }, 10000);
         loraxApp.router.navigate(path);
   }
@@ -342,7 +341,6 @@ loraxApp.Routers.Main = Backbone.Router.extend({
       detailView.data();
       update_graph = setInterval(function(){
         detailView.data();
-        console.log("interval");
       }, 10000);});
       }
     });
