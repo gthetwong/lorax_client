@@ -41,15 +41,15 @@ exports.sendTweet = function(req,res){
           console.log(user.twitter.username);
           console.log(plant.nickname);
           switch(been_dry) {
-            case 2:
+            case "2":
               tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+plant.nickname+"#projectlorax "+timeNow}, access.at, access.ats, function(er, d, r){
                 if(er){
                   console.log(er);
                 }
               });
             break;
-            case 12:
-              console.log("24 hours");
+            case "12":
+              console.log("12 hours");
               tweet.statuses("update", {status: "@"+user.twitter.username+" please water me, sincerely "+plant.nickname+" #projectlorax "+timeNow}, 
               access.at, access.ats, function(er, d, r){
                 if(er){
@@ -57,7 +57,7 @@ exports.sendTweet = function(req,res){
                 }
               });
             break;
-            case 24:
+            case "24":
               console.log("24 hours");
               tweet.statuses("update", {status: "@"+user.twitter.username +", you need to water me soon... #projectlorax " + timeNow }, access.at, access.ats, function(er, d, r){
               if (er){console.log(er);}
