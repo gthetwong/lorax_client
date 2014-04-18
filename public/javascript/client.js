@@ -303,7 +303,6 @@ loraxApp.Routers.Main = Backbone.Router.extend({
   },
   profile: function() {
     console.log("profile view");
-    clearInterval(update_graph);
     var current_user = new loraxApp.Models.CurrentUser();
     var view = new loraxApp.Views.ProfileView({model: current_user});
     $("body").html(view.render().el);
