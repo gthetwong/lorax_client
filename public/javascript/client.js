@@ -93,7 +93,7 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
     return this;
   },
   backToProfile: function(){
-    clearInterval(update_graph);
+    // clearInterval(update_graph);
   },
   data: function(){
     var that = this;
@@ -168,7 +168,7 @@ loraxApp.Views.PlantView = Backbone.View.extend({
     var detailView = new loraxApp.Views.PlantDetailView({ model: this.model });
       $('.plants').html(detailView.render().el);
       detailView.data();
-      update_graph = setInterval(detailView.data(),10000);
+      setInterval(function(){detailView.data();}, 10000);
         loraxApp.router.navigate(path);
   }
 });
