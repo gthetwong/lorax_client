@@ -61,15 +61,14 @@ exports.sendTweet = function(req,res){
               console.log("24 hours");
               tweet.statuses("update", {status: "@"+user.twitter.username +", you need to water me soon... #projectlorax " + timeNow }, access.at, access.ats, function(er, d, r){
               if (er){console.log(er);}
-              console.log(d, "data", r, "result");
             });
             break;
-            case 48:
+            case "48":
               tweet.statuses("update", {status: "Don't forget about your pal "+ plant.nickname + ", @" + user.twitter.username+". It's been two days since they've been over the redline! #projectlorax " + timeNow}, access.at, access.ats, function(er, d, r){
               if (er){console.log(er);}
             });
             break;
-            case 72:
+            case "72":
                tweet.statuses("update", {status: "@"+ user.twitter.username + ", this is your final warning... "+ plant.nickname + " needs to be watered! Don't neglect your plant friend!  #projectlorax " + timeNow},
                 access.at, access.ats, function(er, d, r){
               if (er){console.log(er);}
