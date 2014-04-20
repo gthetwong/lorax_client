@@ -1,16 +1,24 @@
 body {
+  font-family: 'Sniglet', cursive;
   background-color:#554236;
   color:#f1efa5;
 }
 
-h1,h2 {
-  font-family: 'Holtwood One SC', serif;
-  color:#60b99a;
-/*  font-family: 'Candal', sans-serif;*/
-  
+h1{
+  color:#f77825;
 }
 
-h3,h4 {
+h2 {
+  /*font-family: 'Holtwood One SC', serif;*/
+  color:#60b99a;
+  font-family: 'Candal', sans-serif;  
+}
+
+h3{
+
+}
+
+h4 {
   font-family: 'Sniglet', cursive;
   color:#d3ce3d;
 /*  font-family: 'Happy Monkey', cursive;*/
