@@ -36,7 +36,7 @@ h4 {
 }
 
 .about{
-  background-image: url("../images/unsplash_leaf.jpg");
+  background-image: url("../public/images/unsplash_leaf.jpg");
   background-size:cover;
   background-attachment:fixed;
   width:100%;
