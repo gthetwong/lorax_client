@@ -1,14 +1,28 @@
 body {
-
-}
-
-h1,h2 {
-  /*font-family: 'Holtwood One SC', serif;*/
-  font-family: 'Candal', sans-serif;
-  
-}
-
-h3,h4,p,a {
   /*font-family: 'Sniglet', cursive;*/
   font-family: 'Happy Monkey', cursive;
+  background-color:#f1efa5;
+  color:#554236;
 }
+
+h1{
+  color:#f77825;
+  font-family: 'Candal', sans-serif;  
+}
+
+h2 {
+/*  font-family: 'Holtwood One SC', serif;*/
+  font-family: 'Candal', sans-serif;
+  color:#60b99a;
+}
+
+h3{
+
+}
+
+h4 {
+/*  font-family: 'Sniglet', cursive;*/
+  color:#d3ce3d;
+  font-family: 'Happy Monkey', cursive;
+}
+
