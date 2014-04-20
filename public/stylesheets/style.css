@@ -1,6 +1,15 @@
+@font-face{
+  src: url("ApexSerifBold.otf");
+  font-family: "Apex Serif Bold";
+}
+@font-face{
+  src: url("ApexSerifLight.otf");
+  font-family: "Apex Serif Light";
+}
+
+
 body {
-  /*font-family: 'Sniglet', cursive;*/
-  font-family: 'Happy Monkey', cursive;
+  font-family: "Apex Serif Light";
   background-color:#f1efa5;
   color:#554236;
 }
@@ -27,7 +36,7 @@ h4 {
 }
 
 .about{
-  background-image:url("/images/unsplash_leaf.jpg");
+  background-image: url("../images/unsplash_leaf.jpg");
   background-size:cover;
   background-attachment:fixed;
 }
