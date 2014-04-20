@@ -6,12 +6,12 @@ body {
 
 h1{
   color:#f77825;
+  font-family: 'Candal', sans-serif;  
 }
 
 h2 {
   /*font-family: 'Holtwood One SC', serif;*/
   color:#60b99a;
-  font-family: 'Candal', sans-serif;  
 }
 
 h3{
