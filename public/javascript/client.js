@@ -284,17 +284,12 @@ loraxApp.Views.NewPlantView = Backbone.View.extend({
 loraxApp.Routers.Main = Backbone.Router.extend({
   routes: {
     "": "index",
-    "signup": "signup",
     "login" : "login",
     "profile": "profile",
     "profile/:id":"detail"
   },
   index: function(){
     
-  },
-  signup: function () {
-    var view = new loraxApp.Views.SignupView();
-    $("body").html(view.render().el);
   },
   login: function() {
     var view = new loraxApp.Views.LoginView();
@@ -304,13 +299,13 @@ loraxApp.Routers.Main = Backbone.Router.extend({
     console.log("profile view");
     var current_user = new loraxApp.Models.CurrentUser();
     var view = new loraxApp.Views.ProfileView({model: current_user});
-    $("body").html(view.render().el);
+    $(".app").html(view.render().el);
 
     var garden = new loraxApp.Collections.PlantCollection();
     garden.fetch({
       success: function(){
       var gardenView = new loraxApp.Views.PlantCollectionView({ collection: garden });
-      $("body").append(gardenView.render().el);
+      $(".app").append(gardenView.render().el);
       console.log(garden);
       if (garden.length < 8){
         // plus sign should appear here. when the plus sign is clicked render the newPlantView
@@ -326,7 +321,7 @@ loraxApp.Routers.Main = Backbone.Router.extend({
     console.log(id);
     var current_user = new loraxApp.Models.CurrentUser();
     var view = new loraxApp.Views.ProfileView({model: current_user});
-    $("body").html(view.render().el);
+    $(".app").html(view.render().el);
 
     var garden = new loraxApp.Collections.PlantCollection();
     garden.fetch({
