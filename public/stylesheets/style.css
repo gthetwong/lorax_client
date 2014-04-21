@@ -68,6 +68,10 @@ body {
   margin: 5px;
   border-radius: 5px;
   color: #f1efa5;
+  /*display: inline-block;*/
+}
+
+.plant-container {
   display: inline-block;
 }
 
