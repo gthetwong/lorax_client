@@ -12,12 +12,11 @@ body {
   font-family: "Apex Serif Light";
   background-color:#f1efa5;
   color:#554236;
+  width: 100%;
+  height:100%;
 }
 
-h1{
-  color:#f77825;
-  font-family: 'Apex Serif Bold', sans-serif;  
-}
+
 
 h2 {
  font-family: 'Apex Serif Bold', sans-serif; 
@@ -33,6 +32,22 @@ h4 {
   color:#d3ce3d;
   font-family: 'Apex Serif Light', cursive;
 }
+.app{
+  height:100%;
+  width:100%;
+}
+
+.header h1{
+  color:#58954e; /*green*/
+  font-family: 'Apex Serif Bold', sans-serif;  
+}
+
+.signin h3 {
+  color:#554236; /*brown*/
+}
+.signin a {
+  color:#f77825; /*orange*/
+}
 
 .about{
   background-image: url("http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_525d659117c91_1.JPG");
@@ -40,4 +55,8 @@ h4 {
   background-attachment:fixed;
   width:100%;
   height:500px;
+}
+
+.about_wrapper{
+  color:#f1efa5; /*cream*/
 }
