@@ -74,13 +74,17 @@ body {
   height: 170px;
   width: 170px;
   margin: 10px;
-  display: inline-block;
+  float: left;
 }
 
 .plus {
   background: url("/images/Add-New.png");
-  height: 170px;
-  width: 170px;
+  background-size: 100%;
+  height: 168px;
+  width: 168px;
+  margin: 10px;
+  border: 4px solid #f77825;
+  border-radius: 5px;
 }
 
 .tweets {
