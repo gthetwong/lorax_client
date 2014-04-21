@@ -145,9 +145,9 @@ loraxApp.Views.PlantDetailView = Backbone.View.extend({
 
 
 loraxApp.Views.PlantView = Backbone.View.extend({
-  className: "plant",
+  className: "plant-containter",
   events: {
-    "click .plant" : "detail"
+    "click .plant-containter" : "detail"
   },
   render: function(){
     var that = this;
