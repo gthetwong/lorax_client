@@ -22,11 +22,14 @@ body {
 }
 
 .header {
+  font-size:36px;
   color:#58954e; /*green*/
   font-family: 'Apex Serif Bold', sans-serif;  
 }
 
 .signin h3 {
+  margin-left:50px;
+  font-size:30px;
   color:#554236; /*brown*/
   font-family: "Apex Serif Bold", sans-serif;
 }
@@ -44,5 +47,7 @@ body {
 
 .about_wrapper{
   color:#f1efa5; /*cream*/
-  font-size:18px;
+  font-size:24px;
+  width:40%;
+  margin:auto;
 }
