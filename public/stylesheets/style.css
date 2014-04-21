@@ -94,6 +94,9 @@ body {
   border: 4px solid #f77825;
   border-radius: 5px;
 }
+.submit_form input{
+  width:80%;
+}
 
 .plus {
   background: url("/images/Add-New.png");
