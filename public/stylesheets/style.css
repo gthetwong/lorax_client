@@ -65,6 +65,7 @@ body {
   height: 150px;
   width: 150px;
   padding: 10px;
+  margin: 5px auto;
   border-radius: 5px;
   color: #f1efa5;
   /*display: inline-block;*/
@@ -73,8 +74,8 @@ body {
 .plant-container {
   height: 170px;
   width: 170px;
-  margin: 10px;
-  display: inline-block;
+  margin: 20px;
+  float:left;
 }
 
 .tweets {
