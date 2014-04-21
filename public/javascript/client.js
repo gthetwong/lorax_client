@@ -191,6 +191,7 @@ loraxApp.Views.PlantCollectionView = Backbone.View.extend({
 });
 
 loraxApp.Views.NewPlantFormView = Backbone.View.extend({
+  className: "plant-container",
   events: {
     "click .plus": "renderForm"
   },
