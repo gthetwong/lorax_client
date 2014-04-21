@@ -20,13 +20,12 @@ h1{
 }
 
 h2 {
-/*  font-family: 'Holtwood One SC', serif;*/
-  font-family: 'Candal', sans-serif;
+ font-family: 'Apex Serif Bold', sans-serif; 
   color:#60b99a;
 }
 
 h3{
-
+ font-family: 'Apex Serif Light', cursive;
 }
 
 h4 {
@@ -36,7 +35,7 @@ h4 {
 }
 
 .about{
-  background-image: url("/images/unsplash_leaf.jpg");
+  background-image: url("http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_525d659117c91_1.JPG");
   background-size:cover;
   background-attachment:fixed;
   width:100%;
