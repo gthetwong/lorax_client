@@ -79,7 +79,7 @@ body {
 }
 
 .plus {
-  background: url("/images/Add-New.png");
+  background: url("/public/images/Add-New.png");
   height: 150px;
   width: 150px;
 }
