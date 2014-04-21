@@ -65,15 +65,15 @@ body {
   height: 150px;
   width: 150px;
   padding: 10px;
-  margin: 5px;
   border-radius: 5px;
   color: #f1efa5;
   /*display: inline-block;*/
 }
 
 .plant-container {
-  height: 150px;
-  width: 150px;
+  height: 170px;
+  width: 170px;
+  margin: 10px;
   display: inline-block;
 }
 
