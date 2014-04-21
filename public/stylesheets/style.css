@@ -62,8 +62,8 @@ body {
 .plant {
   border: solid 2px #f77825;
   background-color: #58954e;
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
   padding: 10px;
   margin: 5px;
   border-radius: 5px;
@@ -71,7 +71,7 @@ body {
   /*display: inline-block;*/
 }
 
-.plant-container {
+.plant {
   display: inline-block;
 }
 
