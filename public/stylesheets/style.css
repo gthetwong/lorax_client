@@ -55,3 +55,12 @@ body {
   margin:auto;
   width:40%;
 }
+
+.plant {
+  border: solid 2px #f77825;
+  background-color: #58954e;
+  height: 200px;
+  width: 200px;
+  padding: 10px;
+  
+}
