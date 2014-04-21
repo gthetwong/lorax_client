@@ -14,6 +14,8 @@ body {
   color:#554236;
   width: 100%;
   height:100%;
+  margin:0;
+  padding:0;
 }
 
 .app{
@@ -40,7 +42,7 @@ body {
   background-size:cover;
   background-attachment:fixed;
   width:100%;
-  height:500px;
+  height:600px;
 }
 
 .about_wrapper{
@@ -52,6 +54,13 @@ body {
 .about_wrapper p {
   color:#f1efa5; /*cream*/
   font-size:24px;
-  margin:auto;
+  margin:150px auto;
   width:40%;
+
+}
+
+.tweets {
+  margin:100px auto;
+  width:50%;
+
 }
