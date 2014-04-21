@@ -54,13 +54,14 @@ body {
 .about_wrapper p {
   color:#f1efa5; /*cream*/
   font-size:24px;
-  margin:150px auto;
+  margin:75px auto;
+  padding-top:150px;
   width:40%;
 
 }
 
 .tweets {
   margin:100px auto;
-  width:50%;
+  width:25%;
 
 }
