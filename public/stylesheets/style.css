@@ -77,6 +77,12 @@ body {
   display: inline-block;
 }
 
+.plus {
+  background: url("images/Add-New.png");
+  height: 150px;
+  width: 150px;
+}
+
 .tweets {
   margin:100px auto;
   width:25%;
