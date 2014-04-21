@@ -237,16 +237,16 @@ loraxApp.Views.NewPlantView = Backbone.View.extend({
     var type = event.target[1].value;
     switch(type)
     {
-      case "plant1": // plant1 is "Cactus or Succulent" on the form
+      case "Cactus or Succulent": // plant1 is "Cactus or Succulent" on the form
         redline = 1000;
         break;
-      case "plant2": // plant2 is "Leafy Plant" on the form
+      case "Leafy Plant": // plant2 is "Leafy Plant" on the form
         redline = 750;
         break;
-      case "plant3": // plant3 is "Flowering Plant"
+      case "Flowering Plant": // plant3 is "Flowering Plant"
         redline = 850;
         break;
-      case "plant4": // plant4 is "Fruit Bearing Plant"
+      case "Fruit Bearing Plant": // plant4 is "Fruit Bearing Plant"
         redline = "900";
         break;
       default: // default redline is 700
