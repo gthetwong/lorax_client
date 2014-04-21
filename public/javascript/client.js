@@ -191,18 +191,18 @@ loraxApp.Views.PlantCollectionView = Backbone.View.extend({
 });
 
 loraxApp.Views.NewPlantFormView = Backbone.View.extend({
-  // className: "plant-container",
+  className: "plant-form",
   events: {
     "click .plus": "renderForm"
   },
   render: function(){
-    this.$el.html("<div class=\"plant-form\"><div class=\"plus\"></div></div>");
+    this.$el.html("<div class=\"plus\"></div>");
     return this;
   },
   renderForm: function(){
     var current_user = new loraxApp.Models.CurrentUser();
     var newPlantView = new loraxApp.Views.NewPlantView({ model: current_user });
-    $(".plant-form").html(newPlantView.render().el);
+    this.$el.html(newPlantView.render().el);
   }
 });
 
