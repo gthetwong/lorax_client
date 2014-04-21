@@ -16,7 +16,7 @@ body {
 
 h1{
   color:#f77825;
-  font-family: 'Candal', sans-serif;  
+  font-family: 'Apex Serif Bold', sans-serif;  
 }
 
 h2 {
@@ -32,11 +32,11 @@ h3{
 h4 {
 /*  font-family: 'Sniglet', cursive;*/
   color:#d3ce3d;
-  font-family: 'Happy Monkey', cursive;
+  font-family: 'Apex Serif Light', cursive;
 }
 
 .about{
-  background-image: url("../public/images/unsplash_leaf.jpg");
+  background-image: url("/images/unsplash_leaf.jpg");
   background-size:cover;
   background-attachment:fixed;
   width:100%;
