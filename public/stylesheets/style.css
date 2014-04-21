@@ -18,14 +18,10 @@ body {
   padding:0;
 }
 
-/*.container {
-  padding: 0 50px;
-}*/
-
 .app{
   height:100%;
   width:100%;
-  padding: 0 50px;
+  padding: 0 20px;
 }
 
 .header {
@@ -77,7 +73,7 @@ body {
   padding: 10px;
   border-radius: 5px;
   color: #f1efa5;
-  /*display: inline-block;*/
+  overflow: auto;
 }
 
 .plant-container {
