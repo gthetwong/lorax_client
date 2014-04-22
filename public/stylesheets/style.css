@@ -23,6 +23,13 @@ body {
   width:100%;
 }
 
+.container {
+  padding-left: 50px;
+}
+
+.chart {
+  padding-left: 50px;
+}
 
 .header {
   font-size:36px;
@@ -63,6 +70,11 @@ body {
   margin:75px auto;
   padding-top:150px;
   width:40%;
+}
+
+.plants {
+  padding-left: 50px;
+  padding-bottom: 50px;
 }
 
 .plant {
