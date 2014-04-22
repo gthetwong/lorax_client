@@ -30,6 +30,9 @@ body {
 .header {
   font-size:36px;
   color:#58954e; /*green*/
+}
+
+.title {
   padding-left: 30px;
 }
 
