@@ -334,11 +334,13 @@ loraxApp.Routers.Main = Backbone.Router.extend({
 
       console.log(a_model,"the model");
       var detailView = new loraxApp.Views.PlantDetailView({ model: a_model });
-      $(document).ready( function(){$('body').append(detailView.render().el);
-      detailView.data();
-      update_graph = setInterval(function(){
+      $(document).ready( function(){
+        $('.app').append("<div class='plants'></div>");
+        $('.plants').append(detailView.render().el);
         detailView.data();
-      }, 10000);});
+        update_graph = setInterval(function(){
+          detailView.data();
+        }, 10000);});
       }
     });
 
