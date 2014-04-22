@@ -32,6 +32,10 @@ body {
   color:#58954e; /*green*/
 }
 
+.nav-links {
+  padding-left: 30px;
+}
+
 .title {
   padding-left: 30px;
 }
