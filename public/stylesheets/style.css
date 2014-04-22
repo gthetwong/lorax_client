@@ -23,10 +23,17 @@ body {
   width:100%;
 }
 
+.container {
+  padding-left: 50px;
+}
 
 .header {
   font-size:36px;
   color:#58954e; /*green*/
+}
+
+.title {
+  padding-left: 30px;
 }
 
 .header-orange {
@@ -63,6 +70,11 @@ body {
   margin:75px auto;
   padding-top:150px;
   width:40%;
+}
+
+.plants {
+  padding-left: 50px;
+  padding-bottom: 50px;
 }
 
 .plant {
