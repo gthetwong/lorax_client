@@ -27,13 +27,10 @@ body {
   padding-left: 50px;
 }
 
-.chart {
-  padding-left: 50px;
-}
-
 .header {
   font-size:36px;
   color:#58954e; /*green*/
+  padding-left: 30px;
 }
 
 .header-orange {
