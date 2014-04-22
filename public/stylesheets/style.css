@@ -32,8 +32,12 @@ body {
   color:#58954e; /*green*/
 }
 
+.nav {
+  padding-left: 20px;
+}
+
 .nav-links {
-  padding-left: 30px;
+  padding-left: 10px;
 }
 
 .title {
@@ -121,5 +125,5 @@ body {
 
 .tweets {
   margin:100px auto;
-  width:25%;
+  width:35%;
 }
